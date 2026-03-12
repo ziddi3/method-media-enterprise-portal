@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Method Media — Agreement Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=Great+Vibes&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #f5c842;
+            --dark: #0d0d1a;
+            --text: #f0e8d0;
+            --ink: #1a1208;
+            --ink-light: #2d2010;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: linear-gradient(135deg, #0d0d1a 0%, #12122a 50%, #0d1a0d 100%);
+            min-height: 100vh;
+            font-family: 'Rajdhani', sans-serif;
+            color: var(--text);
+        }
+
+        /* ── SUPERNINJA OVERRIDE ── */
+        [class*="superninja"], [id*="superninja"],
+        [class*="ninja-brand"], [id*="ninja-brand"],
+        .ninja-watermark, .sn-badge, .sn-float {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+        }
+
+        /* ── TOOLBAR ── */
+        .viewer-toolbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            background: rgba(13,13,26,0.95);
+            border-bottom: 1px solid rgba(245,200,66,0.25);
+            backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 24px;
+            gap: 16px;
+        }
+
+        .toolbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .toolbar-logo {
+            height: 36px;
+            filter: drop-shadow(0 0 8px rgba(245,200,66,0.5));
+        }
+
+        .toolbar-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            color: var(--gold);
+            letter-spacing: 0.1em;
+        }
+
+        .toolbar-subtitle {
+            font-size: 0.75rem;
+            color: rgba(240,232,208,0.5);
+            display: block;
+        }
+
+        .toolbar-nav {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            background: rgba(245,200,66,0.1);
+            border: 1px solid rgba(245,200,66,0.3);
+            color: var(--gold);
+            padding: 8px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .nav-btn:hover:not(:disabled) {
+            background: rgba(245,200,66,0.25);
+            border-color: var(--gold);
+        }
+        .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+        .page-indicator {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            color: rgba(245,200,66,0.7);
+            min-width: 90px;
+            text-align: center;
+        }
+
+        .toolbar-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            padding: 8px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            border: 1px solid rgba(245,200,66,0.4);
+            background: rgba(245,200,66,0.15);
+            color: var(--gold);
+        }
+        .action-btn:hover {
+            background: rgba(245,200,66,0.3);
+        }
+
+        /* ── MAIN VIEWER AREA ── */
+        .viewer-main {
+            padding-top: 80px;
+            padding-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ── LOADING / ERROR STATES ── */
+        .viewer-loading, .error-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 60vh;
+            gap: 20px;
+        }
+
+        .loading-ring {
+            width: 60px; height: 60px;
+            border: 4px solid rgba(245,200,66,0.15);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .loading-text {
+            font-family: 'Cinzel', serif;
+            color: rgba(245,200,66,0.6);
+            font-size: 1rem;
+            letter-spacing: 0.08em;
+        }
+
+        .error-state { display: none; }
+        .error-icon { font-size: 3rem; }
+        .error-text {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            font-size: 1.2rem;
+        }
+        .error-sub {
+            color: rgba(240,232,208,0.6);
+            font-size: 0.9rem;
+            text-align: center;
+            max-width: 400px;
+        }
+        .back-to-app {
+            background: rgba(245,200,66,0.15);
+            border: 1px solid rgba(245,200,66,0.4);
+            color: var(--gold);
+            padding: 10px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        /* ── CONTRACT PAGE WRAPPER ── */
+        .contract-page-wrap {
+            display: none;
+            width: 100%;
+            max-width: 860px;
+            margin: 24px auto;
+            padding: 0 16px;
+        }
+        .contract-page-wrap.active { display: block; }
+
+        /* ── THE ACTUAL PAGE — letterhead as background ── */
+        .contract-page {
+            position: relative;
+            width: 100%;
+            background: #fff;
+            border-radius: 4px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(245,200,66,0.15);
+            overflow: hidden;
+            /* A4 portrait ratio: 1:1.414 */
+            aspect-ratio: 1 / 1.414;
+        }
+
+        /* Letterhead background image — covers the entire page */
+        .letterhead-bg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: fill;
+            display: block;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* White mask over the circle content area to erase any
+           background text/graphics so contract text reads cleanly */
+        .circle-mask {
+            position: absolute;
+            /* Match the text overlay zone exactly */
+            top: 24%;
+            bottom: 24%;
+            left: 10%;
+            right: 10%;
+            background: rgba(255,255,255,0.96);
+            border-radius: 50%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Content overlay sits above letterhead */
+        /* The circle on the letterhead runs from ~22% to ~77% of page height
+           Left/right edges of the circle are ~9% inset from each side
+           We pad inside the circle so text never touches the ring border */
+        .contract-overlay {
+            position: absolute;
+            /* Start well below the top logo/mascot header (~25% down) */
+            top: 25%;
+            /* End well above the bottom stamps/seals (~76% down = 24% from bottom) */
+            bottom: 26%;
+            /* Inset from sides to stay inside the circle ring */
+            left: 11%;
+            right: 11%;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            /* Small inner padding to keep text away from the ring border */
+            padding: 1.5% 2%;
+        }
+
+        /* Page 1 — same zone, slight extra top pad for breathing room */
+        .overlay-p1 {
+            top: 26%;
+            padding-top: 0.5%;
+        }
+
+        /* Pages 2 & 3 — same circle zone */
+        .overlay-p2 {
+            top: 25%;
+        }
+
+        /* Wax seal — positioned at the bottom edge of the circle area
+           so it sits just above the bottom graphics zone (~74% down) */
+        .page-wax-seal {
+            position: absolute;
+            bottom: 27%;
+            right: 13%;
+            width: clamp(30px, 6%, 54px);
+            z-index: 2;
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.35));
+        }
+
+        /* Page footer bar — just inside the bottom circle edge */
+        .page-footer-bar {
+            position: absolute;
+            bottom: 25.5%;
+            left: 12%;
+            right: 20%;
+            font-size: clamp(0.22rem, 0.44vw, 0.34rem);
+            color: #888;
+            font-family: 'Rajdhani', sans-serif;
+            letter-spacing: 0.04em;
+            z-index: 2;
+            text-align: center;
+        }
+
+        /* ── PAGE 1 CONTENT STYLES ──
+           All text confined inside the white circle zone
+           Sizes are tuned to fit within ~50% of page height
+        ── */
+        .p1-doc-title {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: clamp(0.42rem, 1vw, 0.72rem);
+            color: #8B0000;
+            text-align: center;
+            letter-spacing: 0.07em;
+            margin-bottom: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .p1-ref-line {
+            font-size: clamp(0.28rem, 0.55vw, 0.4rem);
+            color: #666;
+            text-align: center;
+            margin-bottom: 0.5em;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .p1-section-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(0.3rem, 0.62vw, 0.46rem);
+            color: #8B0000;
+            border-bottom: 1px solid rgba(139,0,0,0.25);
+            padding-bottom: 0.15em;
+            margin: 0.4em 0 0.25em 0;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .p1-parties-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.15em 0.8em;
+            margin-bottom: 0.3em;
+        }
+
+        .p1-party-label {
+            font-size: clamp(0.24rem, 0.48vw, 0.36rem);
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            font-family: 'Rajdhani', sans-serif;
+        }
+        .p1-party-value {
+            font-size: clamp(0.28rem, 0.56vw, 0.42rem);
+            color: var(--ink);
+            font-weight: 600;
+            font-family: 'Rajdhani', sans-serif;
+            line-height: 1.25;
+        }
+
+        .p1-config-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: clamp(0.24rem, 0.5vw, 0.38rem);
+            font-family: 'Rajdhani', sans-serif;
+        }
+        .p1-config-table th {
+            background: rgba(139,0,0,0.07);
+            color: #8B0000;
+            font-weight: 700;
+            padding: 0.2em 0.4em;
+            border: 1px solid rgba(139,0,0,0.18);
+            text-align: left;
+            font-size: clamp(0.22rem, 0.44vw, 0.34rem);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+        .p1-config-table td {
+            padding: 0.18em 0.4em;
+            border: 1px solid rgba(0,0,0,0.08);
+            color: var(--ink);
+            line-height: 1.25;
+        }
+        .p1-config-table tr:nth-child(even) td { background: rgba(0,0,0,0.015); }
+        .p1-price-cell { font-weight: 700; color: #8B0000 !important; }
+
+        .p1-scope-text {
+            font-size: clamp(0.24rem, 0.48vw, 0.36rem);
+            color: var(--ink-light);
+            line-height: 1.45;
+            font-family: 'Rajdhani', sans-serif;
+            margin-bottom: 0.3em;
+        }
+
+        .p1-signature-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6em;
+            margin-top: auto;
+            padding-top: 0.35em;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+        .p1-sig-label {
+            font-size: clamp(0.22rem, 0.44vw, 0.34rem);
+            color: #777;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            margin-bottom: 0.15em;
+            font-family: 'Rajdhani', sans-serif;
+        }
+        .p1-sig-line {
+            height: clamp(12px, 2.5vw, 22px);
+            border-bottom: 1px solid #444;
+            display: flex;
+            align-items: flex-end;
+            padding-bottom: 1px;
+        }
+        .p1-sig-img {
+            max-height: 100%;
+            max-width: 80%;
+            object-fit: contain;
+        }
+        .p1-sig-cursive {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(0.5rem, 1.1vw, 0.82rem);
+            color: #1a1a5a;
+        }
+        .p1-sig-caption {
+            font-size: clamp(0.2rem, 0.4vw, 0.3rem);
+            color: #999;
+            margin-top: 0.1em;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        /* ── PAGE 2 & 3 CONTENT STYLES ── */
+        .p2-doc-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(0.36rem, 0.78vw, 0.58rem);
+            color: #8B0000;
+            text-align: center;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .p2-section-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(0.28rem, 0.56vw, 0.42rem);
+            color: #8B0000;
+            border-bottom: 1px solid rgba(139,0,0,0.2);
+            padding-bottom: 0.15em;
+            margin: 0.35em 0 0.25em 0;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .p2-terms-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.2em;
+        }
+        .p2-terms-list li {
+            font-size: clamp(0.24rem, 0.48vw, 0.36rem);
+            color: var(--ink-light);
+            line-height: 1.45;
+            font-family: 'Rajdhani', sans-serif;
+            padding-left: 1.4em;
+            position: relative;
+        }
+        .p2-terms-list li::before {
+            content: attr(data-num) ".";
+            position: absolute;
+            left: 0;
+            color: #8B0000;
+            font-weight: 700;
+        }
+        .p2-terms-list li strong {
+            color: #8B0000;
+            font-weight: 700;
+        }
+
+        .p2-initials-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.3em 1.5em;
+            margin-top: 0.4em;
+            padding-top: 0.3em;
+            border-top: 1px solid rgba(0,0,0,0.08);
+        }
+        .p2-init-label {
+            font-size: clamp(0.22rem, 0.44vw, 0.34rem);
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            margin-bottom: 0.1em;
+            font-family: 'Rajdhani', sans-serif;
+        }
+        .p2-init-line {
+            height: clamp(8px, 1.8vw, 14px);
+            border-bottom: 1px solid #666;
+        }
+
+        /* ── PRINT STYLES ── */
+        @media print {
+            body { background: #fff; }
+            .viewer-toolbar { display: none !important; }
+            .viewer-main { padding-top: 0; }
+            .contract-page-wrap {
+                display: block !important;
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
+                page-break-after: always;
+            }
+            .contract-page {
+                box-shadow: none;
+                border-radius: 0;
+                aspect-ratio: 1 / 1.414;
+                width: 100%;
+            }
+        }
+
+        /* ── METHOD MEDIA BRANDING OVERRIDE (replace SuperNinja) ── */
+        .method-media-float {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(13,13,26,0.82);
+            border: 1px solid rgba(245,200,66,0.25);
+            color: rgba(245,200,66,0.55);
+            font-family: 'Cinzel', serif;
+            font-size: 0.65rem;
+            letter-spacing: 0.12em;
+            padding: 4px 14px;
+            border-radius: 20px;
+            z-index: 999;
+            pointer-events: none;
+            backdrop-filter: blur(8px);
+        }
+    </style>
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+
+    <!-- Toolbar -->
+    <div class="viewer-toolbar">
+        <div class="toolbar-brand">
+            <img src="method-media-logo.png" class="toolbar-logo" alt="Method Media">
+            <div>
+                <span class="toolbar-title">METHOD MEDIA</span>
+                <span class="toolbar-subtitle">Enterprise Agreement Document</span>
+            </div>
+        </div>
+
+        <div class="toolbar-nav">
+            <button class="nav-btn" id="prev-btn" disabled>&#8592; Prev</button>
+            <span class="page-indicator" id="page-ind">Page 1 / 3</span>
+            <button class="nav-btn" id="next-btn">Next &#8594;</button>
+        </div>
+
+        <div class="toolbar-actions">
+            <button class="action-btn" onclick="window.print()">&#128438; Print / Save PDF</button>
+            <button class="action-btn" id="back-to-portal-btn">&#8617; Portal</button>
+        </div>
+    </div>
+
+    <!-- Main viewer -->
+    <div class="viewer-main" id="viewer-main">
+
+        <!-- Loading state -->
+        <div class="viewer-loading" id="loading-state">
+            <div class="loading-ring"></div>
+            <div class="loading-text">Preparing Agreement Document…</div>
+        </div>
+
+        <!-- Error state -->
+        <div class="error-state" id="error-state">
+            <div class="error-icon">📄</div>
+            <div class="error-text">No Agreement Data Found</div>
+            <div class="error-sub">Please complete the agreement process first, then return here to view your document.</div>
+            <button class="back-to-app" onclick="window.location.href='/'">&#8592; Return to Portal</button>
+        </div>
+
+        <!-- PAGE 1 -->
+        <div class="contract-page-wrap" id="page-1-wrap">
+            <div class="contract-page" id="page-1">
+                <!-- Letterhead background — lightweight JPEG -->
+                <img class="letterhead-bg" src="method-media-letterhead.jpg" alt="Method Media Letterhead">
+                <!-- White mask covers circle area to erase background text -->
+                <div class="circle-mask"></div>
+                <!-- Contract content overlaid on letterhead -->
+                <div class="contract-overlay overlay-p1" style="z-index:2;">
+                    <div id="p1-content"></div>
+                </div>
+                <img class="page-wax-seal" id="p1-wax-seal" src="" alt="Wax Seal" style="display:none;">
+                <div class="page-footer-bar" id="p1-footer"></div>
+            </div>
+        </div>
+
+        <!-- PAGE 2 -->
+        <div class="contract-page-wrap" id="page-2-wrap">
+            <div class="contract-page" id="page-2">
+                <img class="letterhead-bg" src="method-media-letterhead.jpg" alt="Method Media Letterhead">
+                <div class="circle-mask"></div>
+                <div class="contract-overlay overlay-p2" style="z-index:2;">
+                    <div id="p2-content"></div>
+                </div>
+                <div class="page-footer-bar" id="p2-footer"></div>
+            </div>
+        </div>
+
+        <!-- PAGE 3 -->
+        <div class="contract-page-wrap" id="page-3-wrap">
+            <div class="contract-page" id="page-3">
+                <img class="letterhead-bg" src="method-media-letterhead.jpg" alt="Method Media Letterhead">
+                <div class="circle-mask"></div>
+                <div class="contract-overlay overlay-p2" style="z-index:2;">
+                    <div id="p3-content"></div>
+                </div>
+                <div class="page-footer-bar" id="p3-footer"></div>
+            </div>
+        </div>
+
+    </div><!-- end viewer-main -->
+
+    <!-- Method-Media branding float (replaces SuperNinja) -->
+    <div class="method-media-float">METHOD-MEDIA</div>
+
+<script>
+'use strict';
+
+/* ══════════════════════════════════════════════════════
+   METHOD MEDIA — CONTRACT VIEWER
+   Uses lightweight letterhead JPEG as background
+   Text overlays are legible on the white center area
+   ══════════════════════════════════════════════════════ */
+
+/* Override any SuperNinja injected content */
+(function overrideSuperNinja() {
+    function replaceNinjaText(node) {
+        if (node.nodeType === Node.TEXT_NODE) {
+            if (/superninja/i.test(node.textContent)) {
+                node.textContent = node.textContent.replace(/superninja/gi, 'Method-Media');
+            }
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+            Array.from(node.childNodes).forEach(replaceNinjaText);
+        }
+    }
+    const observer = new MutationObserver(mutations => {
+        mutations.forEach(m => m.addedNodes.forEach(n => replaceNinjaText(n)));
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+    setTimeout(() => replaceNinjaText(document.body), 500);
+    setTimeout(() => replaceNinjaText(document.body), 1500);
+})();
+
+const TERMS = [
+    { title: "Acceptance",           text: "By executing this Agreement (including digital execution via signature pad), the Client acknowledges they have read, understood, and agree to be bound by all terms and conditions herein." },
+    { title: "Services",             text: "Method Media \u2013 Heavy Hitters (&quot;Provider&quot;) agrees to design, develop, test, and deliver the digital solution per the selected configuration in Schedule A. All work is performed by qualified professionals based in Alberta, Canada." },
+    { title: "Payment",              text: "Invoices are due Net-15 from date of issue. Overdue balances accrue interest at 2% per month compounded monthly. Provider may suspend services for non-payment after 30 days without further liability." },
+    { title: "Intellectual Property",text: "Provider retains ownership of all proprietary frameworks, tools, and methodologies. Upon receipt of final payment, client-specific assets and deliverables transfer under a perpetual non-exclusive licence unless Full Ownership was selected." },
+    { title: "Confidentiality",      text: "Both parties shall hold all non-public information in strict confidence. This obligation survives termination for three (3) years." },
+    { title: "Warranty",             text: "Provider warrants deliverables will conform to specifications for 90 days post-delivery. Warranty excludes issues caused by third-party systems, client modifications, or force majeure events." },
+    { title: "Limitation of Liability", text: "Neither party shall be liable for indirect, incidental, punitive, or consequential damages. Total liability shall not exceed fees paid in the three (3) months prior to the claim." },
+    { title: "Termination",          text: "Either party may terminate with 30 days written notice. Completed milestones remain billable upon termination. Deposits are non-refundable unless Provider is in material breach." },
+    { title: "Independent Contractor", text: "Provider operates as an independent contractor. Nothing herein creates an employment, partnership, or joint-venture relationship." },
+    { title: "Third-Party Services", text: "Client is solely responsible for all charges, terms, and policies imposed by third-party providers selected under this Agreement (AWS, Azure, App Store, etc.)." },
+    { title: "Force Majeure",        text: "Neither party is liable for delays caused by circumstances beyond reasonable control, including natural disasters, cyberattacks, internet outages, or government actions." },
+    { title: "Governing Law",        text: "This Agreement is governed by the laws of the Province of Alberta, Canada. Disputes shall be resolved in the courts of Calgary, Alberta, or by binding arbitration under the Arbitration Act (Alberta)." },
+    { title: "Entire Agreement",     text: "This document and all attached Schedules constitute the entire agreement and supersede all prior negotiations, representations, and understandings." }
+];
+
+let currentPage = 1;
+const totalPages = 3;
+
+function init() {
+    const raw = localStorage.getItem('contractData');
+    if (!raw) { showError(); return; }
+
+    let data;
+    try { data = JSON.parse(raw); } catch(e) { showError(); return; }
+
+    if (!data.preferences || Object.keys(data.preferences).length === 0) {
+        showError(); return;
+    }
+
+    document.getElementById('loading-state').style.display = 'none';
+
+    buildPage1(data);
+    buildPage2(data);
+    buildPage3(data);
+
+    showPage(1);
+    setupNav();
+
+    document.getElementById('back-to-portal-btn').addEventListener('click', () => {
+        window.location.href = '/';
+    });
+}
+
+function showPage(n) {
+    currentPage = n;
+    document.querySelectorAll('.contract-page-wrap').forEach(w => w.classList.remove('active'));
+    const wrap = document.getElementById(`page-${n}-wrap`);
+    if (wrap) wrap.classList.add('active');
+    document.getElementById('page-ind').textContent = `Page ${n} / ${totalPages}`;
+    document.getElementById('prev-btn').disabled = n <= 1;
+    document.getElementById('next-btn').disabled = n >= totalPages;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function setupNav() {
+    document.getElementById('prev-btn').addEventListener('click', () => {
+        if (currentPage > 1) showPage(currentPage - 1);
+    });
+    document.getElementById('next-btn').addEventListener('click', () => {
+        if (currentPage < totalPages) showPage(currentPage + 1);
+    });
+    document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowLeft'  && currentPage > 1)          showPage(currentPage - 1);
+        if (e.key === 'ArrowRight' && currentPage < totalPages)  showPage(currentPage + 1);
+    });
+}
+
+function showError() {
+    document.getElementById('loading-state').style.display = 'none';
+    document.getElementById('error-state').style.display   = 'flex';
+}
+
+/* ══════════════════════════════════════════════════════
+   PAGE 1: Title + Parties + Configuration + Signatures
+   ══════════════════════════════════════════════════════ */
+function buildPage1(data) {
+    const prefs  = data.preferences || {};
+    const date   = fmtDate(data.date);
+    const type   = data.agreementType || 'Master Services Agreement';
+    const client = data.userName || 'Client';
+    const email  = data.clientEmail || '\u2014';
+    const phone  = data.clientPhone || '\u2014';
+    const token  = data.token || '\u2014';
+
+    const rows = Object.values(prefs).map(p => `
+        <tr>
+            <td>${esc(p.label || p.title || 'Service')}</td>
+            <td>${esc(p.title || p.optionId || '\u2014')}</td>
+            <td class="p1-price-cell">${esc(p.price || '\u2014')}</td>
+        </tr>
+    `).join('');
+
+    const html = `
+        <div class="p1-doc-title">${esc(type)}</div>
+        <div class="p1-ref-line">Token: ${esc(token)} &nbsp;&middot;&nbsp; Executed ${esc(date)}</div>
+
+        <div class="p1-section-title">Parties to this Agreement</div>
+        <div class="p1-parties-grid">
+            <div class="p1-party-block">
+                <div class="p1-party-label">Service Provider</div>
+                <div class="p1-party-value">Method Media &ndash; Heavy Hitters<br>Calgary, Alberta, Canada</div>
+            </div>
+            <div class="p1-party-block">
+                <div class="p1-party-label">Client</div>
+                <div class="p1-party-value">${esc(client)}</div>
+            </div>
+            <div class="p1-party-block">
+                <div class="p1-party-label">Client Email</div>
+                <div class="p1-party-value">${esc(email)}</div>
+            </div>
+            <div class="p1-party-block">
+                <div class="p1-party-label">Client Phone</div>
+                <div class="p1-party-value">${esc(phone)}</div>
+            </div>
+        </div>
+
+        <div class="p1-section-title">Schedule A &mdash; Selected Configuration &amp; Pricing</div>
+        <table class="p1-config-table">
+            <thead>
+                <tr>
+                    <th style="width:28%;">Service Category</th>
+                    <th style="width:46%;">Selected Option &amp; Description</th>
+                    <th style="width:26%;">Pricing (CAD)</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${rows || '<tr><td colspan="3">No configuration data.</td></tr>'}
+            </tbody>
+        </table>
+
+        <div class="p1-section-title" style="margin-top:0.4em;">Scope of Work</div>
+        <div class="p1-scope-text">
+            Method Media &ndash; Heavy Hitters (the &ldquo;Provider&rdquo;) agrees to design, develop, test, and deliver the digital solution
+            described in Schedule A above to <strong>${esc(client)}</strong> (the &ldquo;Client&rdquo;) in accordance with the configuration
+            selections made herein. All work shall be performed by qualified professionals based in Alberta, Canada, adhering
+            to industry best practices and applicable provincial standards.
+        </div>
+
+        <div class="p1-signature-row">
+            <div class="p1-sig-col">
+                <div class="p1-sig-label">Client Authorized Signature</div>
+                <div class="p1-sig-line">
+                    ${data.clientSignature
+                        ? `<img class="p1-sig-img" src="${data.clientSignature}" alt="Client Signature">`
+                        : '<span style="font-family:\'Great Vibes\',cursive;font-size:1.2rem;color:#1a1a1a;">___________________________</span>'}
+                </div>
+                <div class="p1-sig-caption">${esc(client)} &nbsp;&middot;&nbsp; ${esc(date)}</div>
+            </div>
+            <div class="p1-sig-col">
+                <div class="p1-sig-label">Method Media Authorized</div>
+                <div class="p1-sig-line">
+                    <span class="p1-sig-cursive">Method Media</span>
+                </div>
+                <div class="p1-sig-caption">Method Media &ndash; Heavy Hitters &nbsp;&middot;&nbsp; ${esc(date)}</div>
+            </div>
+        </div>
+    `;
+
+    document.getElementById('p1-content').innerHTML = html;
+
+    const sealEl = document.getElementById('p1-wax-seal');
+    if (data.waxSealImage && sealEl) {
+        sealEl.src = data.waxSealImage;
+        sealEl.style.display = 'block';
+    }
+
+    document.getElementById('p1-footer').textContent =
+        `Page 1 of 3  \u00b7  ${type}  \u00b7  Method Media \u2013 Heavy Hitters  \u00b7  Calgary, AB`;
+}
+
+/* ══════════════════════════════════════════════════════
+   PAGE 2: Terms & Conditions (clauses 1–9)
+   ══════════════════════════════════════════════════════ */
+function buildPage2(data) {
+    const date  = fmtDate(data.date);
+    const type  = data.agreementType || 'Master Services Agreement';
+    const token = data.token || '\u2014';
+
+    const liItems = TERMS.slice(0, 9).map((t, i) => `
+        <li data-num="${i+1}"><strong>${esc(t.title)}.</strong> ${esc(t.text)}</li>
+    `).join('');
+
+    const html = `
+        <div class="p2-doc-title">Schedule B &mdash; Terms &amp; Conditions (Clauses 1&ndash;9)</div>
+        <div style="font-size:clamp(0.3rem,0.62vw,0.45rem);color:#666;text-align:center;margin-bottom:0.5em;font-family:'Rajdhani',sans-serif;">
+            ${esc(type)} &nbsp;&middot;&nbsp; Token: ${esc(token)} &nbsp;&middot;&nbsp; ${esc(date)}
+        </div>
+
+        <div class="p2-section-title">General Terms &amp; Conditions</div>
+        <ol class="p2-terms-list">
+            ${liItems}
+        </ol>
+
+        <div class="p2-initials-row">
+            <div class="p2-init-col">
+                <div class="p2-init-label">Client Initials</div>
+                <div class="p2-init-line"></div>
+                <div style="font-size:clamp(0.26rem,0.52vw,0.38rem);color:#888;margin-top:1px;font-family:'Rajdhani',sans-serif;">${esc(data.userName || 'Client')}</div>
+            </div>
+            <div class="p2-init-col">
+                <div class="p2-init-label">Provider Initials</div>
+                <div class="p2-init-line"></div>
+                <div style="font-size:clamp(0.26rem,0.52vw,0.38rem);color:#888;margin-top:1px;font-family:'Rajdhani',sans-serif;">Method Media &ndash; Heavy Hitters</div>
+            </div>
+        </div>
+    `;
+
+    document.getElementById('p2-content').innerHTML = html;
+    document.getElementById('p2-footer').textContent =
+        `Page 2 of 3  \u00b7  Terms & Conditions  \u00b7  Method Media \u2013 Heavy Hitters  \u00b7  Calgary, AB`;
+}
+
+/* ══════════════════════════════════════════════════════
+   PAGE 3: Terms 10–13 + Final Execution Block
+   ══════════════════════════════════════════════════════ */
+function buildPage3(data) {
+    const date   = fmtDate(data.date);
+    const type   = data.agreementType || 'Master Services Agreement';
+    const client = data.userName || 'Client';
+    const token  = data.token || '\u2014';
+    const agId   = data.agreementId ? `#${data.agreementId}` : '';
+
+    const liItems = TERMS.slice(9).map((t, i) => `
+        <li data-num="${i+10}"><strong>${esc(t.title)}.</strong> ${esc(t.text)}</li>
+    `).join('');
+
+    const html = `
+        <div class="p2-doc-title">Schedule B &mdash; Terms &amp; Conditions (Clauses 10&ndash;13) &amp; Execution</div>
+        <div style="font-size:clamp(0.3rem,0.62vw,0.45rem);color:#666;text-align:center;margin-bottom:0.5em;font-family:'Rajdhani',sans-serif;">
+            ${esc(type)} &nbsp;&middot;&nbsp; Token: ${esc(token)} &nbsp;&middot;&nbsp; ${esc(date)}
+        </div>
+
+        <div class="p2-section-title">Continued &mdash; Terms &amp; Conditions</div>
+        <ol class="p2-terms-list">
+            ${liItems}
+        </ol>
+
+        <div class="p2-section-title" style="margin-top:0.6em;">Execution &amp; Agreement Record</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.3em 1em;margin-bottom:0.5em;">
+            <div class="p1-party-block">
+                <div class="p1-party-label">Agreement ID</div>
+                <div class="p1-party-value">${agId || '\u2014'}</div>
+            </div>
+            <div class="p1-party-block">
+                <div class="p1-party-label">Execution Date</div>
+                <div class="p1-party-value">${esc(date)}</div>
+            </div>
+            <div class="p1-party-block">
+                <div class="p1-party-label">Client</div>
+                <div class="p1-party-value">${esc(client)}</div>
+            </div>
+            <div class="p1-party-block">
+                <div class="p1-party-label">Unique Token</div>
+                <div class="p1-party-value" style="font-size:0.85em;">${esc(token)}</div>
+            </div>
+        </div>
+
+        <div style="background:rgba(139,0,0,0.04);border:1px solid rgba(139,0,0,0.18);border-radius:3px;padding:0.6em 0.8em;margin-bottom:0.5em;">
+            <div style="font-size:clamp(0.3rem,0.62vw,0.44rem);color:#555;line-height:1.55;text-align:center;font-family:'Rajdhani',sans-serif;">
+                This Agreement has been executed electronically. Digital signatures captured via the Method Media 
+                Agreement Portal carry full legal weight under the <em>Electronic Transactions Act</em> (Alberta) 
+                and the <em>Personal Information Protection Act</em> (PIPA). Both parties acknowledge receipt of 
+                a copy of this executed agreement. Governing law: Province of Alberta, Canada.
+            </div>
+        </div>
+
+        <div class="p1-signature-row">
+            <div class="p1-sig-col">
+                <div class="p1-sig-label">Client Signature &mdash; Final Execution</div>
+                <div class="p1-sig-line">
+                    ${data.clientSignature
+                        ? `<img class="p1-sig-img" src="${data.clientSignature}" alt="Client Signature">`
+                        : '<span style="font-family:\'Great Vibes\',cursive;font-size:1.2rem;color:#1a1a1a;">___________________________</span>'}
+                </div>
+                <div class="p1-sig-caption">${esc(client)} &nbsp;&middot;&nbsp; ${esc(date)}</div>
+            </div>
+            <div class="p1-sig-col">
+                <div class="p1-sig-label">Method Media &mdash; Provider Authorized</div>
+                <div class="p1-sig-line">
+                    <span class="p1-sig-cursive">Method Media</span>
+                </div>
+                <div class="p1-sig-caption">Method Media &ndash; Heavy Hitters &nbsp;&middot;&nbsp; ${esc(date)}</div>
+            </div>
+        </div>
+    `;
+
+    document.getElementById('p3-content').innerHTML = html;
+    document.getElementById('p3-footer').textContent =
+        `Page 3 of 3  \u00b7  Execution Copy  \u00b7  Method Media \u2013 Heavy Hitters  \u00b7  Calgary, AB`;
+}
+
+/* ══ Utilities ══ */
+function fmtDate(d) {
+    if (!d) return new Date().toLocaleDateString('en-CA', { year:'numeric', month:'long', day:'numeric' });
+    return new Date(d).toLocaleDateString('en-CA', { year:'numeric', month:'long', day:'numeric' });
+}
+
+function esc(str) {
+    if (!str) return '';
+    return String(str)
+        .replace(/&/g,'&amp;')
+        .replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;')
+        .replace(/'/g,'&#39;');
+}
+
+/* ══ Boot ══ */
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

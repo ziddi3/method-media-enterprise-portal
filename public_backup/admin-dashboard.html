@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Method Media - Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .admin-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        
+        .admin-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .admin-header h1 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        
+        .login-form {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+        }
+        
+        .login-form input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            outline: none;
+        }
+        
+        .login-form button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+            color: #1a1a2e;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .agreements-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .agreements-table th,
+        .agreements-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+        }
+        
+        .agreements-table th {
+            background: rgba(255, 215, 0, 0.1);
+            color: #ffd700;
+            font-weight: bold;
+        }
+        
+        .agreements-table td {
+            color: #ccc;
+        }
+        
+        .status-badge {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .status-pending {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+        }
+        
+        .status-signed {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4caf50;
+        }
+        
+        .action-btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 5px;
+        }
+        
+        .view-btn {
+            background: #2196F3;
+            color: #fff;
+        }
+        
+        .download-btn {
+            background: #4CAF50;
+            color: #fff;
+        }
+    </style>
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1>Method Media - Admin Dashboard</h1>
+            <p>View and Manage All Agreements</p>
+        </div>
+        
+        <div id="loginSection" class="login-form">
+            <h2 style="color: #ffd700; margin-bottom: 20px; text-align: center;">Admin Login</h2>
+            <input type="text" id="adminUsername" placeholder="Username">
+            <input type="password" id="adminPassword" placeholder="Password">
+            <button id="loginBtn">Login</button>
+            <div id="loginError" style="color: #ff4444; margin-top: 15px;"></div>
+        </div>
+        
+        <div id="dashboardSection" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                <h2 style="color: #ffd700;">All Agreements</h2>
+                <button id="logoutBtn" class="action-btn" style="background: #f44336; color: #fff;">Logout</button>
+            </div>
+            
+            <div id="agreementsList"></div>
+        </div>
+    </div>
+
+    <script>
+        // Admin Dashboard
+        const ADMIN_CREDENTIALS = {
+            username: 'admin',
+            password: 'method2024'
+        };
+        
+        let isLoggedIn = false;
+        
+        // Check if already logged in
+        if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+            isLoggedIn = true;
+            showDashboard();
+        }
+        
+        document.getElementById('loginBtn').addEventListener('click', handleLogin);
+        document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+        
+        function handleLogin() {
+            const username = document.getElementById('adminUsername').value;
+            const password = document.getElementById('adminPassword').value;
+            const errorDiv = document.getElementById('loginError');
+            
+            if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+                isLoggedIn = true;
+                sessionStorage.setItem('adminLoggedIn', 'true');
+                showDashboard();
+            } else {
+                errorDiv.textContent = 'Invalid credentials';
+            }
+        }
+        
+        function handleLogout() {
+            isLoggedIn = false;
+            sessionStorage.removeItem('adminLoggedIn');
+            document.getElementById('loginSection').style.display = 'block';
+            document.getElementById('dashboardSection').style.display = 'none';
+        }
+        
+        function showDashboard() {
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('dashboardSection').style.display = 'block';
+            loadAgreements();
+        }
+        
+        async function loadAgreements() {
+            try {
+                const response = await fetch('/api/admin/agreements');
+                const data = await response.json();
+                
+                if (data.success) {
+                    renderAgreements(data.agreements);
+                } else {
+                    alert('Failed to load agreements');
+                }
+            } catch (error) {
+                console.error('Error loading agreements:', error);
+                alert('Error loading agreements');
+            }
+        }
+        
+        function renderAgreements(agreements) {
+            const container = document.getElementById('agreementsList');
+            
+            if (agreements.length === 0) {
+                container.innerHTML = '<p style="color: #aaa; text-align: center; padding: 40px;">No agreements found</p>';
+                return;
+            }
+            
+            let html = `
+                <table class="agreements-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>User</th>
+                            <th>Type</th>
+                            <th>Date</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            agreements.forEach(agreement => {
+                const signatures = JSON.parse(agreement.signatures || '{}');
+                const statusClass = agreement.status === 'signed' ? 'status-signed' : 'status-pending';
+                
+                html += `
+                    <tr>
+                        <td>#${agreement.id}</td>
+                        <td>${agreement.user_name || 'Unknown'}</td>
+                        <td>${agreement.agreement_type}</td>
+                        <td>${new Date(agreement.created_at).toLocaleDateString()}</td>
+                        <td>${signatures.clientEmail || 'N/A'}</td>
+                        <td>${signatures.clientPhone || 'N/A'}</td>
+                        <td><span class="status-badge ${statusClass}">${agreement.status}</span></td>
+                        <td>
+                            <button class="action-btn view-btn" onclick="viewAgreement(${agreement.id})">View</button>
+                            <button class="action-btn download-btn" onclick="downloadAgreement(${agreement.id})">Download</button>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            html += `
+                    </tbody>
+                </table>
+            `;
+            
+            container.innerHTML = html;
+        }
+        
+        function viewAgreement(id) {
+            // Open agreement in new tab
+            window.open(`/api/admin/agreement/${id}`, '_blank');
+        }
+        
+        function downloadAgreement(id) {
+            // Download agreement PDF
+            window.location.href = `/api/admin/download/${id}`;
+        }
+    </script>
+</body>
+</html>

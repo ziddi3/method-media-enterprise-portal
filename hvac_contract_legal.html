@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HVAC Operational System Contract - Method Media</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: #f0f0f0;
+            color: #1a1a1a;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .contract-document {
+            max-width: 850px;
+            margin: 0 auto;
+            background: white;
+            color: #1a1a1a;
+            padding: 60px 50px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #4ecdc4;
+        }
+
+        .brand-image {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 15px;
+            display: block;
+            border-radius: 50%;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.2em;
+            font-weight: 900;
+            color: #0a0a1f;
+            margin: 15px 0 5px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .document-type {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3em;
+            color: #ff6b6b;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+
+        .contract-number {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1em;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        /* Parties Section */
+        .parties-section {
+            margin: 30px 0;
+            padding: 25px;
+            background: #f8f9fa;
+            border-left: 4px solid #4ecdc4;
+            border-radius: 5px;
+        }
+
+        .parties-section h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.4em;
+            color: #4ecdc4;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .party-block {
+            margin: 15px 0;
+        }
+
+        .party-block .label {
+            font-weight: 700;
+            color: #333;
+            font-size: 1.1em;
+        }
+
+        .party-block .value {
+            color: #555;
+            font-size: 1.1em;
+        }
+
+        /* Contract Sections */
+        .contract-section {
+            margin: 30px 0;
+        }
+
+        .contract-section h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3em;
+            color: #0a0a1f;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e0e0e0;
+            text-transform: uppercase;
+        }
+
+        .contract-section p {
+            font-size: 1.05em;
+            line-height: 1.8;
+            color: #333;
+            margin: 10px 0;
+            text-align: justify;
+        }
+
+        .contract-section ul {
+            margin: 15px 0 15px 25px;
+        }
+
+        .contract-section li {
+            font-size: 1.05em;
+            line-height: 1.7;
+            color: #333;
+            margin: 8px 0;
+        }
+
+        /* Pricing Table */
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            border: 2px solid #e0e0e0;
+        }
+
+        .pricing-table th {
+            background: linear-gradient(135deg, #4ecdc4, #45b7d1);
+            color: white;
+            font-family: 'Orbitron', monospace;
+            font-weight: 600;
+            padding: 12px 15px;
+            text-align: left;
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+
+        .pricing-table td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            background: #fff;
+            font-size: 1em;
+        }
+
+        .pricing-table tr:nth-child(even) td {
+            background: #f8f9fa;
+        }
+
+        .milestone-number {
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            color: #4ecdc4;
+            text-align: center;
+        }
+
+        .milestone-amount {
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            color: #00cc66;
+            text-align: right;
+            font-size: 1.2em;
+        }
+
+        .total-row {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e53) !important;
+        }
+
+        .total-row td {
+            color: white !important;
+            font-weight: 700;
+            font-size: 1.3em;
+            text-align: center !important;
+        }
+
+        /* Terms Box */
+        .terms-box {
+            background: #fff9f9;
+            border: 2px solid #ff6b6b;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+
+        .terms-box h4 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2em;
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        /* Signature Section */
+        .signature-section {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 3px solid #4ecdc4;
+        }
+
+        .signature-section h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.4em;
+            color: #0a0a1f;
+            text-align: center;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        .signature-blocks {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 30px 0;
+        }
+
+        .signature-block {
+            text-align: center;
+        }
+
+        .signature-block .party-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.1em;
+            font-weight: 700;
+            color: #4ecdc4;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .signature-line {
+            border-bottom: 2px solid #333;
+            height: 60px;
+            margin: 10px 0;
+            position: relative;
+        }
+
+        .signature-line::after {
+            content: 'Signature';
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.85em;
+            color: #666;
+        }
+
+        .print-name-line {
+            border-bottom: 1px solid #999;
+            height: 30px;
+            margin: 35px 0 10px;
+            position: relative;
+        }
+
+        .print-name-line::after {
+            content: 'Print Name';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.85em;
+            color: #666;
+        }
+
+        .date-line {
+            border-bottom: 1px solid #999;
+            height: 30px;
+            margin: 30px 0 10px;
+            position: relative;
+        }
+
+        .date-line::after {
+            content: 'Date';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.85em;
+            color: #666;
+        }
+
+        /* Stamp Section */
+        .stamp-section {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .stamp {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 15px;
+            border: 4px solid #ff6b6b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transform: rotate(-15deg);
+        }
+
+        .stamp::before {
+            content: '';
+            position: absolute;
+            width: 85px;
+            height: 85px;
+            border: 2px solid #ff6b6b;
+            border-radius: 50%;
+        }
+
+        .stamp-text {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.75em;
+            font-weight: 900;
+            color: #ff6b6b;
+            text-transform: uppercase;
+            text-align: center;
+            line-height: 1.3;
+            transform: rotate(15deg);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 25px;
+            background: linear-gradient(135deg, #4ecdc4, #45b7d1);
+            color: white;
+            border-radius: 5px;
+        }
+
+        .footer h4 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3em;
+            margin-bottom: 8px;
+        }
+
+        .footer p {
+            font-size: 1em;
+            margin: 4px 0;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .contract-document {
+                box-shadow: none;
+                padding: 40px 30px;
+                margin: 0;
+                max-width: 100%;
+            }
+            
+            .page-break {
+                page-break-before: always;
+            }
+        }
+
+        .page-break {
+            display: none;
+        }
+    </style>
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <div class="contract-document">
+        <!-- Header -->
+        <header class="header">
+            <img src="upload://50131286-8fa7-4fa2-a301-49d6482a24ed.png" alt="Method Media Logo" class="brand-image">
+            <div class="document-type">Master Services Agreement</div>
+            <h1>HVAC Operational System</h1>
+            <div class="contract-number">Contract Number: MM-HVAC-2024-001</div>
+            <div class="contract-number">Date: <span id="currentDate"></span></div>
+        </header>
+
+        <!-- Parties Section -->
+        <div class="parties-section">
+            <h2>Parties to This Agreement</h2>
+            
+            <div class="party-block">
+                <div class="label">SERVICE PROVIDER:</div>
+                <div class="value">
+                    <strong>Method Media</strong> (also referred to as "MMHH")<br>
+                    Heavy Hitters Division<br>
+                    Technology Solutions & Development<br>
+                    Canada
+                </div>
+            </div>
+
+            <div class="party-block" style="margin-top: 20px;">
+                <div class="label">CLIENT:</div>
+                <div class="value">
+                    <strong>Arpi's Industries Ltd</strong> (also referred to as "Client")<br>
+                    HVAC Services Company<br>
+                    6815 40 Street Southeast<br>
+                    Calgary, Alberta, Canada
+                </div>
+            </div>
+        </div>
+
+        <!-- Project Overview -->
+        <div class="contract-section">
+            <h3>1. Project Overview</h3>
+            <p>
+                This Master Services Agreement ("Agreement") is entered into by and between Method Media ("Service Provider") and Arpi's Industries Ltd ("Client") for the development and implementation of a custom HVAC Operational System. The System is designed to increase technician efficiency, quote accuracy, and brand authority through operational leverage.
+            </p>
+            <p>
+                The Client agrees to engage the Service Provider to develop a fully customized operational system under the Client's company name, branding, workflows, and internal processes.
+            </p>
+        </div>
+
+        <!-- Scope of Services -->
+        <div class="contract-section">
+            <h3>2. Scope of Services</h3>
+            <p>
+                The Service Provider agrees to provide the following services:
+            </p>
+            <ul>
+                <li>Custom system design and architecture</li>
+                <li>Client logo and company name integration</li>
+                <li>Custom workflow configuration</li>
+                <li>Branded technician interface development</li>
+                <li>Custom pricing logic and templates</li>
+                <li>Optional CRM integrations</li>
+                <li>Dedicated deployment and implementation</li>
+                <li>30 days of post-launch support</li>
+            </ul>
+        </div>
+
+        <!-- Payment Structure -->
+        <div class="contract-section">
+            <h3>3. Payment Structure - Milestone Model</h3>
+            <p>
+                The total project investment is <strong>$59,000 CAD</strong>, payable in five (5) sequential milestones. Each milestone must be reviewed, approved, signed off, and paid in full before the next phase begins.
+            </p>
+
+            <table class="pricing-table">
+                <thead>
+                    <tr>
+                        <th>Milestone</th>
+                        <th>Description</th>
+                        <th style="text-align: right;">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="milestone-number">1</td>
+                        <td>Discovery & System Mapping</td>
+                        <td class="milestone-amount">$8,500</td>
+                    </tr>
+                    <tr>
+                        <td class="milestone-number">2</td>
+                        <td>Core Build & Workflow Engine</td>
+                        <td class="milestone-amount">$14,000</td>
+                    </tr>
+                    <tr>
+                        <td class="milestone-number">3</td>
+                        <td>Custom Branding & UI Layer</td>
+                        <td class="milestone-amount">$12,500</td>
+                    </tr>
+                    <tr>
+                        <td class="milestone-number">4</td>
+                        <td>Integration & Testing</td>
+                        <td class="milestone-amount">$12,500</td>
+                    </tr>
+                    <tr>
+                        <td class="milestone-number">5</td>
+                        <td>Deployment + Training + Support</td>
+                        <td class="milestone-amount">$11,500</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td colspan="2">TOTAL PROJECT INVESTMENT</td>
+                        <td class="milestone-amount">$59,000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Milestone Terms -->
+        <div class="contract-section">
+            <h3>4. Milestone Terms</h3>
+            <p>
+                Each milestone includes the following conditions:
+            </p>
+            <ul>
+                <li>Service Provider completes milestone deliverables</li>
+                <li>Client reviews and tests deliverables</li>
+                <li>Client provides written approval or change requests</li>
+                <li>Client pays milestone invoice in full</li>
+                <li>Work on next milestone commences only after payment</li>
+            </ul>
+            <p>
+                <strong>Payment Terms:</strong> All invoices are due within 14 days of invoice date. Late payments may result in project delays.
+            </p>
+        </div>
+
+        <!-- Intellectual Property -->
+        <div class="contract-section">
+            <h3>5. Intellectual Property</h3>
+            <p>
+                Upon final payment of Milestone 5, the Service Provider transfers 100% ownership of the custom code, database schema, and system architecture to the Client. The Service Provider retains rights to its underlying reusable code libraries and frameworks.
+            </p>
+        </div>
+
+        <!-- Timeline -->
+        <div class="contract-section">
+            <h3>6. Project Timeline</h3>
+            <p>
+                The estimated project completion time is 12-16 weeks from the start date, contingent upon timely Client feedback and approval at each milestone. Delays in Client approval may extend the timeline.
+            </p>
+        </div>
+
+        <!-- Terms and Conditions -->
+        <div class="terms-box">
+            <h4>Important Terms & Conditions</h4>
+            <ul>
+                <li><strong>Termination:</strong> The Client may terminate this Agreement at the end of any completed milestone by not funding the next milestone. No refunds are issued for completed or in-progress milestones.</li>
+                <li><strong>Support:</strong> 30 days of post-launch support included. Extended support contracts are available upon request.</li>
+                <li><strong>Changes:</strong> Additional features beyond the agreed scope will be scoped as separate milestones with separate pricing.</li>
+                <li><strong>Warranty:</strong> The Service Provider warrants that the System will function as specified for 90 days post-launch, excluding bugs caused by Client modifications or third-party integrations.</li>
+                <li><strong>Confidentiality:</strong> Both parties agree to maintain confidentiality of all proprietary information shared during this project.</li>
+            </ul>
+        </div>
+
+        <!-- Acceptance -->
+        <div class="contract-section">
+            <h3>7. Acceptance</h3>
+            <p>
+                By signing below, the Client acknowledges that they have read, understood, and agreed to all terms and conditions set forth in this Agreement. The Client accepts the milestone payment structure and agrees to the total project investment of $59,000 CAD.
+            </p>
+            <p>
+                <strong>Value Proposition:</strong> One misquoted rooftop unit pays for the system for months.
+            </p>
+        </div>
+
+        <!-- Signature Section -->
+        <div class="signature-section">
+            <h3>Signatures</h3>
+            
+            <div class="signature-blocks">
+                <div class="signature-block">
+                    <div class="party-title">Service Provider</div>
+                    <div class="signature-line"></div>
+                    <div class="print-name-line"></div>
+                    <div class="date-line"></div>
+                    <div style="margin-top: 15px;">
+                        <strong>Method Media - Heavy Hitters</strong>
+                    </div>
+                </div>
+
+                <div class="signature-block">
+                    <div class="party-title">Client</div>
+                    <div class="signature-line"></div>
+                    <div class="print-name-line"></div>
+                    <div class="date-line"></div>
+                    <div style="margin-top: 15px;">
+                        <strong>Arpi's Industries Ltd</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stamp Section -->
+        <div class="stamp-section">
+            <div class="stamp">
+                <div class="stamp-text">
+                    CONTRACT<br>
+                    READY<br>
+                    FOR<br>
+                    SIGNATURE
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <h4>Method Media - Heavy Hitters</h4>
+            <p>Technology Solutions • Operational Systems • Custom Development</p>
+            <p style="margin-top: 8px; font-size: 0.95em;">
+                This contract is legally binding upon signature by both parties.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Set current date
+        const date = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('currentDate').textContent = date.toLocaleDateString('en-US', options);
+    </script>
+</body>
+</html>

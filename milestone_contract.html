@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milestone Agreement - Method Media</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: white;
+            color: #1a1a1a;
+            line-height: 1.5;
+            padding: 0;
+        }
+
+        .contract-page {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            color: #1a1a1a;
+            padding: 40px 50px;
+            min-height: 1100px;
+            position: relative;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #1a1a1a;
+        }
+
+        h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5em;
+            font-weight: 900;
+            color: #1a1a1a;
+            margin: 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .document-type {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.4em;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .contract-info {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 1em;
+            color: #666;
+        }
+
+        /* HVAC Logo */
+        .hvac-logo {
+            text-align: center;
+            margin: 15px 0 20px;
+        }
+
+        .hvac-logo-text {
+            font-family: 'Orbitron', monospace;
+            font-size: 3em;
+            font-weight: 900;
+            color: #1a1a1a;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+        }
+
+        .hvac-logo-subtitle {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.2em;
+            color: #666;
+            letter-spacing: 15px;
+            margin-top: 5px;
+        }
+
+        /* Parties Section */
+        .parties-section {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f8f8;
+            border-left: 4px solid #1a1a1a;
+        }
+
+        .party-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 10px 0;
+        }
+
+        .party-label {
+            font-weight: 700;
+            color: #1a1a1a;
+            font-size: 1em;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .party-name {
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        .party-details {
+            font-size: 0.95em;
+            color: #666;
+            margin-top: 3px;
+        }
+
+        /* Initial Agreement Signature */
+        .agreement-signature {
+            margin: 20px 0;
+            padding: 20px;
+            background: #fff9f9;
+            border: 2px solid #1a1a1a;
+            display: grid;
+            grid-template-columns: 1fr 150px;
+            gap: 20px;
+            align-items: end;
+        }
+
+        .agreement-signature .signature-block {
+            flex: 1;
+        }
+
+        .agreement-signature .party-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1em;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .agreement-signature .signature-line {
+            border-bottom: 3px solid #1a1a1a;
+            height: 70px;
+            margin: 8px 0;
+        }
+
+        .agreement-signature .signature-label {
+            font-size: 0.85em;
+            color: #666;
+            text-transform: uppercase;
+            margin-top: 3px;
+        }
+
+        .stamp-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stamp {
+            width: 100px;
+            height: 100px;
+            border: 4px solid #ff6b6b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .stamp::before {
+            content: '';
+            position: absolute;
+            width: 85px;
+            height: 85px;
+            border: 2px solid #ff6b6b;
+            border-radius: 50%;
+        }
+
+        .stamp-text {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.7em;
+            font-weight: 900;
+            color: #ff6b6b;
+            text-transform: uppercase;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        /* Terms Section */
+        .terms-section {
+            margin: 20px 0;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            border-bottom: 2px solid #1a1a1a;
+            padding-bottom: 6px;
+        }
+
+        .terms-list {
+            margin: 12px 0 12px 20px;
+        }
+
+        .terms-list li {
+            font-size: 0.95em;
+            line-height: 1.5;
+            color: #333;
+            margin: 8px 0;
+            text-align: justify;
+        }
+
+        /* Milestone Table */
+        .milestone-section {
+            margin: 20px 0;
+        }
+
+        .milestone-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            border: 2px solid #1a1a1a;
+        }
+
+        .milestone-table th {
+            background: #1a1a1a;
+            color: white;
+            font-family: 'Orbitron', monospace;
+            font-weight: 600;
+            padding: 10px 12px;
+            text-align: left;
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+
+        .milestone-table td {
+            padding: 12px;
+            border: 1px solid #1a1a1a;
+            font-size: 0.95em;
+            vertical-align: top;
+        }
+
+        .milestone-table tr:nth-child(even) td {
+            background: #f8f8f8;
+        }
+
+        .milestone-number {
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            color: #1a1a1a;
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+        .milestone-amount {
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            color: #1a1a1a;
+            text-align: right;
+            font-size: 1.1em;
+        }
+
+        .milestone-signature-area {
+            padding: 10px;
+            background: #fff9f9;
+        }
+
+        .milestone-signature-line {
+            border-bottom: 2px solid #1a1a1a;
+            height: 50px;
+            margin: 5px 0;
+        }
+
+        .milestone-signature-label {
+            font-size: 0.8em;
+            color: #666;
+            text-transform: uppercase;
+            margin-top: 3px;
+        }
+
+        .total-row {
+            background: #1a1a1a !important;
+        }
+
+        .total-row td {
+            color: white !important;
+            font-weight: 700;
+            font-size: 1.2em;
+            text-align: center !important;
+        }
+
+        /* Payment Terms Box */
+        .payment-terms-box {
+            background: #fff9f9;
+            border: 3px solid #ff6b6b;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .payment-terms-box .warning-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.1em;
+            font-weight: 700;
+            color: #ff6b6b;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .payment-terms-box .warning-text {
+            font-size: 1em;
+            color: #333;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .footer h4 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.1em;
+            margin-bottom: 3px;
+        }
+
+        .footer p {
+            font-size: 0.9em;
+            margin: 2px 0;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .contract-page {
+                box-shadow: none;
+                padding: 30px 40px;
+                margin: 0;
+                page-break-after: always;
+            }
+        }
+
+        .page-break {
+            page-break-after: always;
+        }
+    </style>
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <div class="contract-page">
+        <!-- Header -->
+        <header class="header">
+            <div class="document-type">Milestone Development Agreement</div>
+            <h1>HVAC Operational System</h1>
+            <div class="contract-info">
+                Contract Number: MM-MS-2024-001 | Date: <span id="currentDate"></span>
+            </div>
+        </header>
+
+        <!-- HVAC Logo -->
+        <div class="hvac-logo">
+            <div class="hvac-logo-text">HVAC</div>
+            <div class="hvac-logo-subtitle">Operational Intelligence</div>
+        </div>
+
+        <!-- Parties Section -->
+        <div class="parties-section">
+            <div class="party-row">
+                <div>
+                    <div class="party-label">Service Provider</div>
+                    <div class="party-name"><strong>Method Media</strong></div>
+                    <div class="party-details">Heavy Hitters Division • Technology Solutions</div>
+                </div>
+                <div>
+                    <div class="party-label">Client</div>
+                    <div class="party-name"><strong>_____________________</strong></div>
+                    <div class="party-details">Company Name • Location</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Agreement Signature with Stamp -->
+        <div class="agreement-signature">
+            <div class="signature-block">
+                <div class="party-title">Client Agreement Signature</div>
+                <div class="signature-line"></div>
+                <div class="signature-label">Print Name: _______________________</div>
+                <div class="signature-label">Date: _______________________</div>
+            </div>
+            <div class="stamp-container">
+                <div class="stamp">
+                    <div class="stamp-text">
+                        AGREEMENT<br>
+                        SIGNED<br>
+                        & VALID
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terms and Conditions -->
+        <div class="terms-section">
+            <div class="section-title">Terms and Conditions</div>
+            <ul class="terms-list">
+                <li><strong>No Timeline Guarantee:</strong> There is no guaranteed timeline for project completion. Work is completed on a milestone basis whenever finished. No expectations regarding specific completion dates or timelines.</li>
+                <li><strong>Change Requests:</strong> At each milestone, the Client has the opportunity to suggest changes or edits. All change requests must be documented and agreed upon before proceeding.</li>
+                <li><strong>Milestone Sign-Off:</strong> Client must sign off for each milestone, indicating acceptance of the progress made. Sign-off confirms that the Client is satisfied with the work completed in that milestone.</li>
+                <li><strong>Payment Before Work:</strong> No work starts on a milestone until the full payment for that entire stage is cleared and received by Method Media.</li>
+                <li><strong>Progressive Development:</strong> Work on subsequent milestones will only commence after the previous milestone is completed, signed off, and paid in full.</li>
+                <li><strong>Intellectual Property:</strong> Upon final payment of Milestone 5, Method Media transfers 100% ownership of custom code and system architecture to the Client.</li>
+                <li><strong>Change Scope:</strong> Additional features beyond the agreed scope will be scoped as separate milestones with separate pricing.</li>
+                <li><strong>Termination:</strong> Client may terminate at the end of any completed milestone by not funding the next milestone. No refunds for completed or in-progress stages.</li>
+                <li><strong>Support:</strong> 30 days of post-launch support included. Extended support contracts available upon request.</li>
+                <li><strong>Entire Agreement:</strong> This document constitutes the entire agreement. Any modifications must be in writing and signed by both parties.</li>
+            </ul>
+        </div>
+
+        <!-- Payment Terms Warning -->
+        <div class="payment-terms-box">
+            <div class="warning-title">CRITICAL PAYMENT TERMS</div>
+            <div class="warning-text">
+                EACH MILESTONE MUST BE PAID IN FULL BEFORE WORK ON THE NEXT MILESTONE BEGINS.<br>
+                SIGNATURE ON EACH MILESTONE ACKNOWLEDGES PAYMENT RECEIVED AND PROGRESS ACCEPTED.
+            </div>
+        </div>
+
+        <!-- Milestone Table -->
+        <div class="milestone-section">
+            <div class="section-title">Milestone Breakdown & Signatures</div>
+            
+            <table class="milestone-table">
+                <thead>
+                    <tr>
+                        <th>Milestone</th>
+                        <th>Description</th>
+                        <th style="text-align: right;">Amount</th>
+                        <th style="width: 250px;">Signature</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="milestone-number">1</td>
+                        <td>Discovery & System Mapping</td>
+                        <td class="milestone-amount">$8,500</td>
+                        <td class="milestone-signature-area">
+                            <div class="milestone-signature-line"></div>
+                            <div class="milestone-signature-label">Milestone 1 Signature</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="milestone-number">2</td>
+                        <td>Core Build & Workflow Engine</td>
+                        <td class="milestone-amount">$14,000</td>
+                        <td class="milestone-signature-area">
+                            <div class="milestone-signature-line"></div>
+                            <div class="milestone-signature-label">Milestone 2 Signature</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="milestone-number">3</td>
+                        <td>Custom Branding & UI Layer</td>
+                        <td class="milestone-amount">$12,500</td>
+                        <td class="milestone-signature-area">
+                            <div class="milestone-signature-line"></div>
+                            <div class="milestone-signature-label">Milestone 3 Signature</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="milestone-number">4</td>
+                        <td>Integration & Testing</td>
+                        <td class="milestone-amount">$12,500</td>
+                        <td class="milestone-signature-area">
+                            <div class="milestone-signature-line"></div>
+                            <div class="milestone-signature-label">Milestone 4 Signature</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="milestone-number">5</td>
+                        <td>Deployment + Training + Support</td>
+                        <td class="milestone-amount">$11,500</td>
+                        <td class="milestone-signature-area">
+                            <div class="milestone-signature-line"></div>
+                            <div class="milestone-signature-label">Milestone 5 Signature</div>
+                        </td>
+                    </tr>
+                    <tr class="total-row">
+                        <td colspan="2">TOTAL PROJECT INVESTMENT</td>
+                        <td class="milestone-amount" style="text-align: right;">$59,000</td>
+                        <td style="text-align: center;">-</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <h4>Method Media - Heavy Hitters</h4>
+            <p>Technology Solutions • HVAC Operational Systems</p>
+            <p style="margin-top: 5px; font-size: 0.85em;">This agreement is legally binding upon signature</p>
+        </div>
+    </div>
+
+    <script>
+        // Set current date
+        const date = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('currentDate').textContent = date.toLocaleDateString('en-US', options);
+    </script>
+</body>
+</html>

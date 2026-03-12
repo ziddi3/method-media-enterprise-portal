@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Method Media - Cloud Agreement System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles-branding.css">
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- Landing Page with Wax Seal -->
+        <div id="landing-page" class="page active">
+            <div class="wax-seal-container">
+                <div class="wax-seal">
+                    <div class="wax-seal-inner">
+                        <img src="elf-mascot.png" alt="Method Media Elf Mascot" class="method-media-logo">
+                    </div>
+                </div>
+                <div class="wax-seal-glow"></div>
+            </div>
+            
+            <div class="landing-content">
+                <h1>Welcome to Method Media</h1>
+                <p>Enter your name to begin your journey</p>
+                <div class="name-input-container">
+                    <input type="text" id="name-input" placeholder="Your Name" autocomplete="off">
+                    <button id="enter-name-btn" class="enter-btn">Enter</button>
+                </div>
+                <p class="instruction">Press Enter to continue</p>
+            </div>
+        </div>
+
+        <!-- Signature &amp; Password Setup Page -->
+        <div id="password-page" class="page">
+            <div class="password-container">
+                <div class="generating-seal">
+                    <div class="seal-animation">
+                        <div class="seal-ring"></div>
+                        <div class="seal-ring"></div>
+                        <div class="seal-ring"></div>
+                    </div>
+                    <p>Generating your unique wax seal...</p>
+                </div>
+                
+                <div class="signature-password-form" id="signature-password-form" style="display: none;">
+                    <h2>Create Your Signature Passkey</h2>
+                    <p class="signature-instructions">
+                        Sign below to create your unique signature passkey. This will be used for authentication.
+                    </p>
+                    <div class="signature-pad-container">
+                        <canvas id="register-signature-pad" width="400" height="200"></canvas>
+                        <button id="clear-register-signature" class="clear-btn">Clear</button>
+                    </div>
+                    
+                    <div class="password-optional-section">
+                        <h3>Optional: Create a Password Backup</h3>
+                        <p class="password-requirements">
+                            Add a password as backup (6+ chars, 1 special char, 1 number)
+                        </p>
+                        <div class="password-inputs">
+                            <input type="password" id="password" placeholder="Password (optional)">
+                            <input type="password" id="confirm-password" placeholder="Confirm Password">
+                        </div>
+                    </div>
+                    <button id="create-account-btn" class="create-btn">Create Account</button>
+                    <div id="password-error" class="error-message"></div>
+                </div>
+                
+                <div class="wax-seal-result" id="wax-seal-result" style="display: none;">
+                    <h2>Your Unique Wax Seal</h2>
+                    <div class="seal-display">
+                        <img id="user-wax-seal" src="" alt="Your Wax Seal">
+                    </div>
+                    <p class="seal-message">Your unique token: <span id="unique-token"></span></p>
+                    <button id="continue-btn" class="continue-btn">Continue to Configuration</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Login Page with Signature -->
+        <div id="login-page" class="page">
+            <div class="login-container">
+                <h2>Welcome Back</h2>
+                <p class="login-instructions">Sign your signature to authenticate</p>
+                <div class="wax-seal-display">
+                    <img id="login-wax-seal" src="" alt="Your Wax Seal">
+                </div>
+                <div class="login-form">
+                    <input type="text" id="login-name" placeholder="Your Name">
+                    
+                    <div class="signature-login-section">
+                        <h4>Sign to Login</h4>
+                        <div class="signature-pad-container">
+                            <canvas id="login-signature-pad" width="400" height="200"></canvas>
+                            <button id="clear-login-signature" class="clear-btn">Clear</button>
+                        </div>
+                    </div>
+                    
+                    <div class="password-fallback">
+                        <p>Signature not matching? <button id="show-password-login" class="link-btn">Use Password</button></p>
+                        <div id="password-login-section" style="display: none;">
+                            <input type="password" id="login-password" placeholder="Password">
+                        </div>
+                    </div>
+                    
+                    <button id="login-btn" class="login-submit-btn">Login</button>
+                    <div id="login-error" class="error-message"></div>
+                </div>
+            </div>
+        </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cloud Configuration System -->
+        <div id="cloud-page" class="page">
+            <div class="cloud-container">
+                <div class="cloud-header">
+                    <h1>Configure Your Solution</h1>
+                    <p class="cloud-intro">Select your path through the clouds</p>
+                </div>
+                
+                <div class="cloud-navigation">
+                    <button id="back-btn" class="back-btn" style="display: none;">← Back</button>
+                </div>
+                
+                <div class="cloud-stage" id="cloud-stage">
+                    <!-- Cloud content will be dynamically generated -->
+                </div>
+                
+                <div class="cloud-footer">
+                    <div class="cloud-preview">
+                        <p>Next: <span id="next-preview">Loading...</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Agreement Page -->
+        <div id="agreement-page" class="page">
+            <div class="agreement-container">
+                <div class="agreement-header">
+                    <h1 id="agreement-title">Your Agreement</h1>
+                    <div class="agreement-wax-seal">
+                        <img id="agreement-wax-seal-img" src="" alt="Your Wax Seal">
+                    </div>
+                </div>
+                
+                <div class="agreement-content" id="agreement-content">
+                    <!-- Dynamic agreement content -->
+                </div>
+                
+                <div class="fine-print" id="fine-print">
+                    <h3>Terms and Conditions</h3>
+                    <div class="fine-print-content">
+                        <p><strong>1. Acceptance of Terms</strong> - By accessing and using this Agreement, you acknowledge that you have read, understood, and agree to be bound by these terms and conditions.</p>
+                        <p><strong>2. Service Description</strong> - Method Media - Heavy Hitters provides custom software development, hosting solutions, and related services as specified in this agreement.</p>
+                        <p><strong>3. Payment Terms</strong> - All payments are due as outlined in the selected configuration. Late payments may incur additional fees. Method Media reserves the right to suspend services for non-payment.</p>
+                        <p><strong>4. Intellectual Property</strong> - Unless otherwise specified, Method Media retains ownership of all proprietary code, frameworks, and methodologies. Custom branding and client-specific content remain property of the client upon full payment.</p>
+                        <p><strong>5. Confidentiality</strong> - Both parties agree to maintain confidentiality of all proprietary information shared during the course of this agreement.</p>
+                        <p><strong>6. Limitation of Liability</strong> - Method Media shall not be liable for any indirect, incidental, special, or consequential damages arising from the use or inability to use the services provided.</p>
+                        <p><strong>7. Termination</strong> - Either party may terminate this agreement with 30 days written notice. Outstanding payments must be settled upon termination.</p>
+                        <p><strong>8. Third-Party Services</strong> - Client is responsible for all charges incurred from third-party services, hosting providers, and integrations selected in this agreement.</p>
+                        <p><strong>9. Maintenance and Support</strong> - Ongoing maintenance and support terms are as specified in the selected configuration.</p>
+                        <p><strong>10. Governing Law</strong> - This agreement is governed by the laws of Alberta, Canada. Any disputes shall be resolved in Calgary, Alberta.</p>
+                        <p><strong>11. Modifications</strong> - Method Media reserves the right to modify these terms with 30 days notice to the client.</p>
+                        <p><strong>12. Entire Agreement</strong> - This document constitutes the entire agreement between the parties and supersedes all prior negotiations, representations, or agreements.</p>
+                    </div>
+                </div>
+                
+                <div class="agreement-actions">
+                    <div class="scroll-indicator" id="scroll-indicator">
+                        ↓ Scroll to bottom to continue
+                    </div>
+                    
+                    <div class="agreement-signature-section">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="agree-checkbox">
+                            <span class="checkmark"></span>
+                            <span>I have read and agree to the terms and conditions</span>
+                        </label>
+                        
+                        <div class="signature-section" id="signature-section" style="display: none;">
+                            <h3>Sign with your wax seal</h3>
+                            <div class="wax-seal-signature">
+                                <img id="signature-wax-seal" src="" alt="Your Wax Seal">
+                            </div>
+                            <canvas id="signature-pad" class="signature-pad"></canvas>
+                            <div class="contact-info-section">
+                                <h4>Contact Information</h4>
+                                <input type="email" id="client-email" placeholder="Email Address" required>
+                                <input type="tel" id="client-phone" placeholder="Phone Number" required>
+                            </div>
+                            <div class="signature-actions">
+                                <button id="clear-signature-btn" class="clear-btn">Clear</button>
+                                <button id="finalize-agreement-btn" class="finalize-btn">Finalize Agreement</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final Agreement Document -->
+        <div id="final-agreement-page" class="page">
+            <div class="final-agreement-container">
+                <div class="final-agreement-header">
+                    <h1>🎉 Agreement Generated Successfully!</h1>
+                    <p>Your agreement is ready for signature</p>
+                </div>
+                
+                <div class="final-agreement-content" id="final-agreement-content">
+                    <!-- Generated agreement document -->
+                </div>
+                
+                <div class="final-agreement-actions">
+                    <button id="download-btn" class="download-btn">Download PDF</button>
+                    <button id="share-btn" class="share-btn">Share for Signature</button>
+                    <button id="new-agreement-btn" class="new-agreement-btn">Create New Agreement</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

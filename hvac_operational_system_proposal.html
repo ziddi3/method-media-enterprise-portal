@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HVAC Operational System - Method Media</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: linear-gradient(135deg, #0a0a1f 0%, #1a1a3e 50%, #0a0a1f 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 40px 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .flame-snowflake {
+            font-size: 3em;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #ff6b6b, 0 0 20px #ff6b6b; }
+            to { text-shadow: 0 0 15px #4ecdc4, 0 0 25px #4ecdc4; }
+        }
+
+        h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 3em;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin: 20px 0;
+        }
+
+        .subtitle {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3em;
+            color: #4ecdc4;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Positioning Section */
+        .positioning {
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(0, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .positioning h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2em;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+        }
+
+        .positioning p {
+            font-size: 1.4em;
+            line-height: 1.8;
+            color: #e0e0e0;
+        }
+
+        .positioning .highlight {
+            color: #4ecdc4;
+            font-weight: 600;
+        }
+
+        .positioning .emphasis {
+            color: #ff6b6b;
+            font-weight: 700;
+            font-size: 1.2em;
+        }
+
+        /* Option Cards */
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .option-card {
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(0, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .option-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 255, 255, 0.2);
+            border-color: rgba(0, 255, 255, 0.4);
+        }
+
+        .option-card.featured {
+            border-color: rgba(255, 107, 107, 0.4);
+            background: rgba(255, 107, 107, 0.05);
+        }
+
+        .option-card.featured:hover {
+            border-color: rgba(255, 107, 107, 0.6);
+            box-shadow: 0 20px 40px rgba(255, 107, 107, 0.2);
+        }
+
+        .option-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: 0.9em;
+        }
+
+        .option-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2em;
+            color: #4ecdc4;
+            margin-bottom: 10px;
+            padding-right: 100px;
+        }
+
+        .option-subtitle {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.2em;
+            color: #888;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .option-description {
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: #e0e0e0;
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .total-price {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .total-price .label {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2em;
+            color: #888;
+            margin-bottom: 10px;
+        }
+
+        .total-price .amount {
+            font-family: 'Orbitron', monospace;
+            font-size: 3em;
+            font-weight: 900;
+            color: #00ff88;
+            margin: 10px 0;
+        }
+
+        .milestone-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .milestone-table th {
+            background: rgba(0, 100, 200, 0.3);
+            color: #00ccff;
+            font-family: 'Orbitron', monospace;
+            font-weight: 600;
+            text-align: left;
+            padding: 15px;
+            border: 1px solid rgba(0, 150, 255, 0.3);
+        }
+
+        .milestone-table td {
+            padding: 15px;
+            border: 1px solid rgba(0, 150, 255, 0.2);
+            background: rgba(0, 20, 40, 0.2);
+        }
+
+        .milestone-number {
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            color: #4ecdc4;
+        }
+
+        .milestone-amount {
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            color: #00ff88;
+            text-align: right;
+        }
+
+        /* Features List */
+        .features-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .features-list li {
+            margin: 15px 0;
+            padding-left: 30px;
+            position: relative;
+            color: #e0e0e0;
+            font-size: 1.1em;
+        }
+
+        .features-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #4ecdc4;
+            font-weight: bold;
+        }
+
+        /* Subscription Tiers */
+        .tier-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .tier-card:hover {
+            border-color: rgba(0, 255, 255, 0.4);
+            transform: translateX(10px);
+        }
+
+        .tier-card.featured {
+            border-color: rgba(255, 107, 107, 0.4);
+            background: rgba(255, 107, 107, 0.05);
+        }
+
+        .tier-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .tier-name {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #4ecdc4;
+        }
+
+        .tier-price {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #00ff88;
+        }
+
+        .setup-fee {
+            text-align: center;
+            background: rgba(255, 107, 107, 0.1);
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .setup-fee .label {
+            font-family: 'Orbitron', monospace;
+            color: #ff6b6b;
+            font-size: 0.9em;
+        }
+
+        .setup-fee .amount {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #ff6b6b;
+        }
+
+        /* Closing Section */
+        .closing {
+            text-align: center;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 20px;
+            margin-top: 60px;
+        }
+
+        .closing h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2em;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+        }
+
+        .closing p {
+            font-size: 1.3em;
+            color: #e0e0e0;
+            margin: 15px 0;
+        }
+
+        .closing .emphasis {
+            color: #4ecdc4;
+            font-weight: 700;
+            font-size: 1.5em;
+            display: block;
+            margin-top: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .options-container {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .tier-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            .option-card,
+            .pricing-section,
+            .tier-card,
+            .closing {
+                background: white;
+                border: 1px solid #ccc;
+                box-shadow: none;
+            }
+            
+            h1, h2, .option-title, .tier-name {
+                color: black !important;
+                -webkit-text-fill-color: black !important;
+            }
+        }
+    </style>
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo-container">
+                <span class="flame-snowflake">❄️</span>
+                <span style="font-family: 'Orbitron', monospace; font-size: 2.5em; font-weight: 900; color: #4ecdc4;">METHOD MEDIA</span>
+                <span class="flame-snowflake">🔥</span>
+            </div>
+            <h1>HVAC Operational System</h1>
+            <div class="subtitle">Efficiency • Accuracy • Authority</div>
+        </header>
+
+        <!-- Positioning Section -->
+        <div class="positioning">
+            <h2>The Positioning</h2>
+            <p>
+                <span class="highlight">First — do not sell it as "an app."</span><br><br>
+                Sell it as an <span class="emphasis">operational system</span> that increases 
+                <span class="highlight">technician efficiency</span>, 
+                <span class="highlight">quote accuracy</span>, and 
+                <span class="highlight">brand authority</span>.<br><br>
+                We are not offering a template app — we are offering <span class="emphasis">operational leverage</span>.
+            </p>
+        </div>
+
+        <!-- Options Container -->
+        <div class="options-container">
+            <!-- Option 1: Custom Branded Build -->
+            <div class="option-card featured">
+                <div class="option-badge">CUSTOM BUILD</div>
+                <h3 class="option-title">OPTION 1</h3>
+                <p class="option-subtitle">Custom Branded Build (Milestone Model)</p>
+                
+                <p class="option-description">
+                    This is for companies that want the system fully customized under their company name, branding, workflows, and internal processes. This is a milestone-based development agreement.
+                </p>
+
+                <p class="option-description">
+                    <strong>They do not pay everything upfront. They pay per completed stage.</strong> Each milestone must be reviewed, approved, signed off, and paid before the next phase begins.
+                </p>
+
+                <div class="pricing-section">
+                    <div class="total-price">
+                        <div class="label">Total Project Investment</div>
+                        <div class="amount">$59,000 CAD</div>
+                    </div>
+
+                    <table class="milestone-table">
+                        <thead>
+                            <tr>
+                                <th>Milestone</th>
+                                <th>Description</th>
+                                <th style="text-align: right;">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="milestone-number">1</td>
+                                <td>Discovery & System Mapping</td>
+                                <td class="milestone-amount">$8,500</td>
+                            </tr>
+                            <tr>
+                                <td class="milestone-number">2</td>
+                                <td>Core Build & Workflow Engine</td>
+                                <td class="milestone-amount">$14,000</td>
+                            </tr>
+                            <tr>
+                                <td class="milestone-number">3</td>
+                                <td>Custom Branding & UI Layer</td>
+                                <td class="milestone-amount">$12,500</td>
+                            </tr>
+                            <tr>
+                                <td class="milestone-number">4</td>
+                                <td>Integration & Testing</td>
+                                <td class="milestone-amount">$12,500</td>
+                            </tr>
+                            <tr>
+                                <td class="milestone-number">5</td>
+                                <td>Deployment + Training + 30 Days Support</td>
+                                <td class="milestone-amount">$11,500</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h4 style="font-family: 'Orbitron', monospace; color: #4ecdc4; margin: 20px 0;">What They Receive:</h4>
+                <ul class="features-list">
+                    <li>Their logo and company name integrated</li>
+                    <li>Custom workflow configuration</li>
+                    <li>Branded technician interface</li>
+                    <li>Custom pricing logic and templates</li>
+                    <li>Optional CRM integrations</li>
+                    <li>Dedicated deployment</li>
+                </ul>
+
+                <p style="text-align: center; margin-top: 30px; padding: 20px; background: rgba(0, 255, 255, 0.1); border-radius: 10px; font-family: 'Orbitron', monospace; color: #4ecdc4; font-style: italic;">
+                    "You're not buying software. You're investing in a tailored operational system."
+                </p>
+            </div>
+
+            <!-- Option 2: Unbranded Branch -->
+            <div class="option-card">
+                <h3 class="option-title">OPTION 2</h3>
+                <p class="option-subtitle">Unbranded Branch (Subscription Model)</p>
+                
+                <p class="option-description">
+                    This is Bob's cousin under our infrastructure. They use our system as a licensed branch. No custom development required. Faster onboarding. Lower entry cost.
+                </p>
+
+                <div class="pricing-section">
+                    <h4 style="font-family: 'Orbitron', monospace; color: #4ecdc4; margin-bottom: 20px;">Subscription Tiers</h4>
+
+                    <div class="tier-card">
+                        <div class="tier-header">
+                            <div class="tier-name">Tier 1 — Field Assist</div>
+                            <div class="tier-price">$299<span style="font-size: 0.6em;">/mo</span></div>
+                        </div>
+                        <ul class="features-list">
+                            <li>Technician AI assistance</li>
+                            <li>Quote support</li>
+                            <li>Basic job logging</li>
+                            <li>Email support</li>
+                        </ul>
+                    </div>
+
+                    <div class="tier-card featured">
+                        <div class="tier-header">
+                            <div class="tier-name">Tier 2 — Pro Operations</div>
+                            <div class="tier-price">$499<span style="font-size: 0.6em;">/mo</span></div>
+                        </div>
+                        <ul class="features-list">
+                            <li>Everything in Tier 1</li>
+                            <li>Custom pricing templates</li>
+                            <li>Multi-tech access</li>
+                            <li>Reporting dashboard</li>
+                            <li>Priority support</li>
+                        </ul>
+                    </div>
+
+                    <div class="tier-card">
+                        <div class="tier-header">
+                            <div class="tier-name">Tier 3 — Enterprise Branch</div>
+                            <div class="tier-price">$799<span style="font-size: 0.6em;">/mo</span></div>
+                        </div>
+                        <ul class="features-list">
+                            <li>Everything in Tier 2</li>
+                            <li>Light branding customization</li>
+                            <li>Advanced analytics</li>
+                            <li>API access</li>
+                            <li>Strategy call quarterly</li>
+                        </ul>
+                    </div>
+
+                    <div class="setup-fee">
+                        <div class="label">Setup Fee</div>
+                        <div class="amount">$1,000</div>
+                        <div style="color: #888; margin-top: 5px;">One-time onboarding</div>
+                    </div>
+                </div>
+
+                <p style="text-align: center; margin-top: 30px; padding: 20px; background: rgba(0, 255, 255, 0.1); border-radius: 10px; font-family: 'Orbitron', monospace; color: #4ecdc4; font-style: italic;">
+                    "This gives you operational intelligence without the overhead of building your own system."
+                </p>
+            </div>
+        </div>
+
+        <!-- Closing Section -->
+        <div class="closing">
+            <h2>The Value Proposition</h2>
+            <p>Do not undersell it. We are slightly above average because we are not offering a template app — we are offering operational leverage.</p>
+            
+            <p style="margin-top: 20px;"><strong>If they hesitate, remind them:</strong></p>
+            <p class="emphasis">
+                "One misquoted rooftop unit pays for the system for months."
+            </p>
+            
+            <p style="margin-top: 30px; font-family: 'Orbitron', monospace; font-size: 1.5em; color: #4ecdc4;">
+                Stay confident.
+            </p>
+        </div>
+
+        <!-- Footer -->
+        <div style="text-align: center; margin-top: 60px; padding: 20px; border-top: 2px solid rgba(0, 255, 255, 0.2);">
+            <p style="font-family: 'Orbitron', monospace; color: #4ecdc4; font-size: 1.2em;">
+                Created by Method Media - Heavy Hitters
+            </p>
+            <p style="margin-top: 10px; color: #888;">Demo Day • No Fluff • Clean • Confident • Professional</p>
+        </div>
+    </div>
+</body>
+</html>

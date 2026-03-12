@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HVAC Operational System Proposal - Method Media</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: linear-gradient(135deg, #0a0a1f 0%, #1a1a3e 50%, #0a0a1f 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            padding: 40px;
+        }
+
+        .document-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            color: #1a1a1a;
+            padding: 60px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #4ecdc4;
+        }
+
+        .brand-image {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            display: block;
+            border-radius: 50%;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5em;
+            font-weight: 900;
+            color: #0a0a1f;
+            margin: 20px 0 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.4em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        /* Company Info Section */
+        .company-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 40px 0;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 2px solid #4ecdc4;
+        }
+
+        .company-block h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3em;
+            color: #4ecdc4;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .company-block p {
+            font-size: 1.1em;
+            margin: 8px 0;
+            color: #333;
+        }
+
+        .company-block .label {
+            font-weight: 600;
+            color: #666;
+        }
+
+        /* Content Sections */
+        .section {
+            margin: 40px 0;
+        }
+
+        .section h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8em;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ff6b6b;
+        }
+
+        .section p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #333;
+            margin: 15px 0;
+        }
+
+        .highlight {
+            color: #4ecdc4;
+            font-weight: 600;
+        }
+
+        /* Pricing Table */
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .pricing-table th {
+            background: linear-gradient(135deg, #4ecdc4, #45b7d1);
+            color: white;
+            font-family: 'Orbitron', monospace;
+            font-weight: 600;
+            padding: 15px;
+            text-align: left;
+            text-transform: uppercase;
+        }
+
+        .pricing-table td {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            background: #fff;
+        }
+
+        .pricing-table tr:nth-child(even) td {
+            background: #f8f9fa;
+        }
+
+        .milestone-number {
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            color: #4ecdc4;
+        }
+
+        .milestone-amount {
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            color: #00cc66;
+            text-align: right;
+            font-size: 1.3em;
+        }
+
+        .total-row {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e53) !important;
+        }
+
+        .total-row td {
+            color: white !important;
+            font-weight: 700;
+            font-size: 1.4em;
+        }
+
+        /* Subscription Tiers */
+        .tier-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+
+        .tier-item {
+            background: white;
+            border: 2px solid #4ecdc4;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .tier-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
+        }
+
+        .tier-item.featured {
+            border-color: #ff6b6b;
+            background: linear-gradient(135deg, #fff5f5, #ffffff);
+        }
+
+        .tier-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .tier-name {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #4ecdc4;
+        }
+
+        .tier-price {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.6em;
+            font-weight: 700;
+            color: #00cc66;
+        }
+
+        /* Stamp Section */
+        .stamp-section {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 3px solid #4ecdc4;
+        }
+
+        .stamp {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            border: 5px solid #ff6b6b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transform: rotate(-15deg);
+        }
+
+        .stamp::before {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 2px solid #ff6b6b;
+            border-radius: 50%;
+        }
+
+        .stamp-text {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9em;
+            font-weight: 900;
+            color: #ff6b6b;
+            text-transform: uppercase;
+            text-align: center;
+            line-height: 1.4;
+            transform: rotate(15deg);
+        }
+
+        .stamp-date {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1em;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #4ecdc4, #45b7d1);
+            color: white;
+            border-radius: 10px;
+        }
+
+        .footer h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .footer p {
+            font-size: 1.2em;
+            margin: 5px 0;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+                padding: 40px;
+            }
+        }
+    </style>
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <div class="document-container">
+        <!-- Header with Brand Image -->
+        <header class="header">
+            <img src="upload://50131286-8fa7-4fa2-a301-49d6482a24ed.png" alt="Method Media Logo" class="brand-image">
+            <h1>HVAC Operational System</h1>
+            <div class="subtitle">Proposal Document</div>
+        </header>
+
+        <!-- Company Information -->
+        <div class="company-section">
+            <div class="company-block">
+                <h3>Sold By</h3>
+                <p><span class="label">Company:</span> Method Media</p>
+                <p><span class="label">Division:</span> Heavy Hitters</p>
+                <p><span class="label">Type:</span> Technology Solutions</p>
+                <p><span class="label">Location:</span> Canada</p>
+            </div>
+            <div class="company-block">
+                <h3>Proposed For</h3>
+                <p><span class="label">Company:</span> Arpi's Industries Ltd</p>
+                <p><span class="label">Industry:</span> HVAC Services</p>
+                <p><span class="label">Location:</span> Calgary, Alberta</p>
+                <p><span class="label">Since:</span> 1963</p>
+            </div>
+        </div>
+
+        <!-- Positioning Section -->
+        <div class="section">
+            <h2>System Overview</h2>
+            <p>
+                This proposal presents an <span class="highlight">operational system</span> designed to increase 
+                <span class="highlight">technician efficiency</span>, 
+                <span class="highlight">quote accuracy</span>, and 
+                <span class="highlight">brand authority</span> for HVAC companies. 
+                We are not offering a template app — we are offering operational leverage.
+            </p>
+        </div>
+
+        <!-- Option 1: Custom Build -->
+        <div class="section">
+            <h2>Option 1: Custom Branded Build</h2>
+            <p>
+                Fully customized system under Arpi's Industries Ltd branding, with custom workflows and internal processes. 
+                <strong>Milestone-based development agreement</strong> — pay per completed stage.
+            </p>
+
+            <table class="pricing-table">
+                <thead>
+                    <tr>
+                        <th>Milestone</th>
+                        <th>Description</th>
+                        <th style="text-align: right;">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="milestone-number">1</td>
+                        <td>Discovery & System Mapping</td>
+                        <td class="milestone-amount">$8,500</td>
+                    </tr>
+                    <tr>
+                        <td class="milestone-number">2</td>
+                        <td>Core Build & Workflow Engine</td>
+                        <td class="milestone-amount">$14,000</td>
+                    </tr>
+                    <tr>
+                        <td class="milestone-number">3</td>
+                        <td>Custom Branding & UI Layer</td>
+                        <td class="milestone-amount">$12,500</td>
+                    </tr>
+                    <tr>
+                        <td class="milestone-number">4</td>
+                        <td>Integration & Testing</td>
+                        <td class="milestone-amount">$12,500</td>
+                    </tr>
+                    <tr>
+                        <td class="milestone-number">5</td>
+                        <td>Deployment + Training + Support</td>
+                        <td class="milestone-amount">$11,500</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td colspan="2" style="text-align: center;">TOTAL INVESTMENT</td>
+                        <td class="milestone-amount">$59,000</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><em>Each milestone must be reviewed, approved, signed off, and paid before the next phase begins.</em></p>
+        </div>
+
+        <!-- Option 2: Subscription -->
+        <div class="section">
+            <h2>Option 2: Unbranded Branch (Subscription)</h2>
+            <p>
+                Use our proven system as a licensed branch. No custom development required. Faster onboarding with lower entry cost.
+            </p>
+
+            <div class="tier-section">
+                <div class="tier-item">
+                    <div class="tier-header">
+                        <div class="tier-name">Tier 1 — Field Assist</div>
+                        <div class="tier-price">$299/mo</div>
+                    </div>
+                    <p>Technician AI assistance • Quote support • Basic job logging • Email support</p>
+                </div>
+
+                <div class="tier-item featured">
+                    <div class="tier-header">
+                        <div class="tier-name">Tier 2 — Pro Operations</div>
+                        <div class="tier-price">$499/mo</div>
+                    </div>
+                    <p>Everything in Tier 1 • Custom pricing templates • Multi-tech access • Reporting dashboard • Priority support</p>
+                </div>
+
+                <div class="tier-item">
+                    <div class="tier-header">
+                        <div class="tier-name">Tier 3 — Enterprise Branch</div>
+                        <div class="tier-price">$799/mo</div>
+                    </div>
+                    <p>Everything in Tier 2 • Light branding • Advanced analytics • API access • Quarterly strategy calls</p>
+                </div>
+
+                <div style="text-align: center; margin-top: 20px; padding: 15px; background: #fff5f5; border-radius: 8px;">
+                    <strong style="color: #ff6b6b;">Setup Fee: $1,000</strong> (one-time onboarding)
+                </div>
+            </div>
+        </div>
+
+        <!-- Value Proposition -->
+        <div class="section">
+            <h2>Value Proposition</h2>
+            <p>
+                <em>"One misquoted rooftop unit pays for the system for months."</em>
+            </p>
+            <p>
+                We are positioned above average because we deliver <strong>operational leverage</strong>, not template software. 
+                Each system is tailored to your specific workflows and business processes.
+            </p>
+        </div>
+
+        <!-- Stamp Section -->
+        <div class="stamp-section">
+            <div class="stamp">
+                <div class="stamp-text">
+                    PROPOSAL<br>
+                    APPROVED<br>
+                    2024
+                </div>
+            </div>
+            <div class="stamp-date" id="currentDate"></div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <h3>Method Media - Heavy Hitters</h3>
+            <p>Technology Solutions • Operational Systems • Custom Development</p>
+            <p style="margin-top: 10px; font-size: 1em;">
+                <i class="fas fa-phone"></i> Contact for pricing details
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Set current date
+        const date = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('currentDate').textContent = date.toLocaleDateString('en-US', options);
+    </script>
+</body>
+</html>

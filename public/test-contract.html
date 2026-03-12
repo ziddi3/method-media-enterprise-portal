@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head><title>Test - Inject Contract Data</title><script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+<script>
+// Inject realistic test contract data into localStorage then redirect to contract-viewer
+const testData = {
+    userName: "Charles Sterling",
+    waxSealImage: "/wax_seals/seal_1773231816659.png",
+    preferences: {
+        "project-type": {
+            optionId: "web-app",
+            title: "Web Application",
+            label: "Project Type",
+            price: "$9,500 – $22,000 CAD",
+            details: "Responsive web app deployable on any browser. Includes backend API, database design, and UI.",
+            basePrice: 15000
+        },
+        "hosting": {
+            optionId: "method-hub",
+            title: "Method Hub (Managed)",
+            label: "Hosting",
+            price: "Included in package",
+            details: "Fully managed by Method Media. One bill, zero headaches. 99.9% uptime SLA.",
+            monthlyAddon: 0
+        },
+        "ownership": {
+            optionId: "full-ownership",
+            title: "Full Ownership (Licence)",
+            label: "Ownership Model",
+            price: "One-time + $195/mo support",
+            details: "You own the source code and IP. Optional support retainer.",
+            monthly: 195
+        },
+        "ai": {
+            optionId: "ai-basic",
+            title: "Conversational AI (Basic)",
+            label: "AI Integration",
+            price: "$39/user/month CAD",
+            details: "Smart chatbot, FAQ automation, ticket routing, search enhancement.",
+            aiAddon: 39
+        },
+        "maintenance": {
+            optionId: "standard-support",
+            title: "Standard Support",
+            label: "Maintenance Plan",
+            price: "$225/month CAD",
+            details: "Business-hours support (M–F 8am–6pm MT). Bug fixes within 5 business days.",
+            maintMonthly: 225
+        },
+        "addons": {
+            optionId: "analytics",
+            title: "Analytics Dashboard",
+            label: "Add-On Features",
+            price: "$1,200 one-time + $65/mo",
+            details: "Real-time KPIs, custom reports, data export (CSV/Excel/PDF), automated email digests.",
+            addonPrice: 1200
+        }
+    },
+    clientSignature: null,
+    clientEmail: "charles@methodmedia.ca",
+    clientPhone: "403-555-0199",
+    agreementType: "Custom Software Development & Licensing Agreement",
+    agreementId: 1,
+    token: "MM-3EHNU7F7J-MMM0FUD8",
+    date: new Date().toISOString()
+};
+
+localStorage.setItem('contractData', JSON.stringify(testData));
+window.location.href = '/contract-viewer.html';
+</script>
+</body>
+</html>

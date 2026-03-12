@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Purchase Agreement</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            max-width: 800px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 60px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 20px;
+        }
+        .logo {
+            max-width: 150px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+        .parties {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        .party-box {
+            width: 45%;
+        }
+        h2 {
+            font-size: 18px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        p, li {
+            font-size: 14px;
+        }
+        ul {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .signatures {
+            margin-top: 60px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .sig-line {
+            width: 45%;
+            margin-top: 40px;
+            border-top: 1px solid #333;
+            padding-top: 5px;
+            font-size: 14px;
+        }
+        /* Print styles to ensure it looks good as a PDF */
+        @media print {
+            body {
+                background-color: #fff;
+            }
+            .container {
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <img src="ZUES_LOGO_FILENAME.png" alt="Company Logo" class="logo">
+            <h1>Asset Purchase Agreement</h1>
+            <p><strong>Effective Date:</strong> March 2, 2026</p>
+        </div>
+
+        <div class="parties">
+            <div class="party-box">
+                <strong>SELLER:</strong><br>
+                Charles S.<br>
+                Email: charles@method-hvac.com<br>
+                Phone: 403-888-1577
+            </div>
+            <div class="party-box">
+                <strong>BUYER:</strong><br>
+                [Buyer Legal Name]<br>
+                [Buyer Address]<br>
+                [Buyer Email]
+            </div>
+        </div>
+
+        <h2>1. Purchase and Sale of Assets</h2>
+        <p>The Seller agrees to sell, and the Buyer agrees to purchase, all rights, title, and interest in the mobile application known as <strong>[App Name]</strong>, including but not limited to:</p>
+        <ul>
+            <li>The source code, object code, and technical documentation.</li>
+            <li>All graphic designs, logos, and UI/UX assets.</li>
+            <li>All domain names, social media accounts, and app store listings associated with the application.</li>
+            <li>All existing user data (subject to applicable privacy laws) and intellectual property rights.</li>
+        </ul>
+
+        <h2>2. Purchase Price</h2>
+        <p>The total purchase price for the Assets shall be <strong>$60,000.00 (Sixty Thousand Dollars)</strong>, payable as follows:</p>
+        <ul>
+            <li><strong>Deposit:</strong> A non-refundable deposit of <strong>$10,000.00</strong> shall be paid upon signing this agreement.</li>
+            <li><strong>Balance:</strong> The remaining <strong>$50,000.00</strong> shall be paid upon the successful transfer of the App Store/Google Play credentials, source code, and related administrative accounts.</li>
+        </ul>
+
+        <h2>3. Transfer of Assets</h2>
+        <p>The Seller shall deliver the Assets to the Buyer within <strong>[Number]</strong> days of the effective date. This includes transferring ownership of the code repository, hosting accounts, and administrative rights to all integrated third-party services.</p>
+
+        <h2>4. Representations and Warranties</h2>
+        <p>The Seller represents that they are the sole owner of the application and that the software does not infringe upon the intellectual property rights of any third party. The application is sold "as-is," with no warranties regarding future performance, compatibility, or revenue generation.</p>
+
+        <h2>5. Non-Compete Clause</h2>
+        <p>The Seller agrees not to develop, market, or sell a substantially similar or competing application for a period of <strong>[Number]</strong> years following the date of this agreement.</p>
+
+        <div class="signatures">
+            <div class="sig-line">
+                <strong>Seller Signature</strong><br>
+                Charles S.<br>
+                Date: _______________
+            </div>
+            <div class="sig-line">
+                <strong>Buyer Signature</strong><br>
+                [Buyer Name Printed]<br>
+                Date: _______________
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

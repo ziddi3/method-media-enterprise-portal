@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Method Media — Enterprise Agreement Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+    <script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+    <script>
+    /* Override SuperNinja branding — replace with Method-Media */
+    (function() {
+        // CSS overrides for any injected SuperNinja elements
+        const style = document.createElement('style');
+        style.textContent = `
+            /* Hide any SuperNinja injected watermarks/badges */
+            [class*="superninja"], [id*="superninja"],
+            [class*="ninja-brand"], [id*="ninja-brand"],
+            .ninja-watermark, .sn-badge, .sn-float,
+            .ninja-powered, .powered-by-ninja,
+            [data-ninja], [data-superninja] {
+                display: none !important;
+                visibility: hidden !important;
+                opacity: 0 !important;
+                pointer-events: none !important;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Text node replacement observer
+        function replaceNinja(node) {
+            if (node.nodeType === Node.TEXT_NODE) {
+                if (/superninja/i.test(node.textContent)) {
+                    node.textContent = node.textContent.replace(/superninja/gi, 'Method-Media');
+                }
+            } else if (node.nodeType === Node.ELEMENT_NODE &&
+                       node.tagName !== 'SCRIPT' && node.tagName !== 'STYLE') {
+                Array.from(node.childNodes).forEach(replaceNinja);
+            }
+        }
+
+        const mo = new MutationObserver(mutations => {
+            mutations.forEach(m => m.addedNodes.forEach(n => replaceNinja(n)));
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            mo.observe(document.body, { childList: true, subtree: true, characterData: true });
+            replaceNinja(document.body);
+            setTimeout(() => replaceNinja(document.body), 500);
+            setTimeout(() => replaceNinja(document.body), 1500);
+        });
+    })();
+    </script>
+</head>
+<body>
+    <!-- Particle canvas background -->
+    <canvas id="particle-canvas"></canvas>
+
+    <div id="app">
+
+        <!-- ═══════════ LANDING PAGE ═══════════ -->
+        <![CDATA[        <div id="landing-page" class="page active">
+            <div class="landing-bg-overlay"></div>
+            
+            <!-- Artistic background elements -->
+            <div class="landing-bg-artistic"></div>
+            <div class="energy-ribbon r1" style="--rotation: -15deg;"></div>
+            <div class="energy-ribbon r2" style="--rotation: 12deg;"></div>
+            <div class="energy-ribbon r3" style="--rotation: -8deg;"></div>
+            <div class="mandala-glow mg1"></div>
+            <div class="mandala-glow mg2"></div>
+            <div class="floating-art fa1"></div>
+            <div class="floating-art fa2"></div>
+            
+            <!-- Neon particles -->
+            <div class="neon-particle cyan" style="left: 10%; animation-delay: 0s;"></div>
+            <div class="neon-particle purple" style="left: 25%; animation-delay: -2s;"></div>
+            <div class="neon-particle gold" style="left: 40%; animation-delay: -4s;"></div>
+            <div class="neon-particle magenta" style="left: 55%; animation-delay: -6s;"></div>
+            <div class="neon-particle cyan" style="left: 70%; animation-delay: -8s;"></div>
+            <div class="neon-particle purple" style="left: 85%; animation-delay: -10s;"></div>
+
+            <div class="landing-hero">]]>
+                <div class="mascot-seal-wrapper">
+                    <div class="outer-ring ring-1"></div>
+                    <div class="outer-ring ring-2"></div>
+                    <div class="outer-ring ring-3"></div>
+                    <div class="seal-glow-halo"></div>
+                    <div class="mascot-circle" id="mascot-secret-trigger" title="">
+                        <img src="elf-mascot.png" alt="Method Media Mascot" class="mascot-img">
+                    </div>
+                </div>
+
+                <div class="landing-text">
+                    <div class="brand-badge">
+                        <img src="trident-logo.png" alt="Trident" class="trident-icon-sm">
+                        <span>METHOD MEDIA</span>
+                        <img src="trident-logo.png" alt="Trident" class="trident-icon-sm flip">
+                    </div>
+                    <h1 class="hero-title">Enterprise<br><span class="gold-text">Agreement Portal</span></h1>
+                    <p class="hero-sub">Professional digital agreements forged with your unique seal</p>
+
+                    <div class="name-input-group">
+                        <div class="glow-input-wrap">
+                            <input type="text" id="name-input" placeholder="Enter your full name…" autocomplete="off">
+                            <div class="input-glow-line"></div>
+                        </div>
+                        <button id="enter-name-btn" class="btn-primary pulse-btn">
+                            <span>Begin</span>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        </button>
+                    </div>
+                    <p class="hint-text">↵ Press Enter or click Begin</p>
+                </div>
+            </div>
+
+            <div class="bottom-brand">
+                <img src="method-media-logo.png" alt="Method Media" class="bottom-logo">
+            </div>
+        </div>
+
+        <!-- ═══════════ REGISTRATION PAGE ═══════════ -->
+        <![CDATA[        <div id="password-page" class="page">
+            <div class="page-bg-overlay"></div>
+            
+            <!-- Artistic elements for registration -->
+            <div class="energy-ribbon r1" style="--rotation: -12deg; top: 20%;"></div>
+            <div class="energy-ribbon r2" style="--rotation: 8deg;"></div>
+            <div class="mandala-glow mg1" style="opacity: 0.4;"></div>
+            
+            <div class="centered-card wide-card artistic-glow-card">]]>
+                <div class="card-header-brand">
+                    <img src="trident-logo.png" class="card-trident" alt="trident">
+                    <h2>Create Your Account</h2>
+                    <img src="trident-logo.png" class="card-trident flip" alt="trident">
+                </div>
+
+                <!-- Step 1: Generating -->
+                <div id="seal-generating" class="step-panel">
+                    <div class="forge-animation">
+                        <div class="forge-ring fr1"></div>
+                        <div class="forge-ring fr2"></div>
+                        <div class="forge-ring fr3"></div>
+                        <div class="forge-center">
+                            <img src="method-media-logo.png" alt="MM" class="forge-logo">
+                        </div>
+                    </div>
+                    <p class="forge-text">Forging your unique identity seal…</p>
+                </div>
+
+                <!-- Step 2: Sign + Password -->
+                <div id="signature-password-form" class="step-panel" style="display:none;">
+                    <div class="step-intro">
+                        <h3>🖊 Your Signature Passkey</h3>
+                        <p>Sign below — this becomes your biometric passkey AND your unique wax seal pattern.</p>
+                    </div>
+                    <div class="sig-pad-wrapper">
+                        <canvas id="register-signature-pad" width="500" height="180"></canvas>
+                        <button id="clear-register-signature" class="btn-ghost-sm">✕ Clear</button>
+                    </div>
+
+                    <div class="divider-line"><span>Optional Password Backup</span></div>
+                    <div class="form-row">
+                        <div class="glow-input-wrap">
+                            <input type="password" id="password" placeholder="Password (optional)">
+                            <div class="input-glow-line"></div>
+                        </div>
+                        <div class="glow-input-wrap">
+                            <input type="password" id="confirm-password" placeholder="Confirm Password">
+                            <div class="input-glow-line"></div>
+                        </div>
+                    </div>
+                    <p class="hint-text">Min 6 characters · 1 number · 1 special character</p>
+                    <button id="create-account-btn" class="btn-primary full-width">
+                        Forge My Account
+                    </button>
+                    <div id="password-error" class="error-msg"></div>
+                </div>
+
+                <!-- Step 3: Seal revealed -->
+                <div id="wax-seal-result" class="step-panel" style="display:none;">
+                    <h3>✨ Your Seal Has Been Forged</h3>
+                    <div class="seal-reveal-wrap">
+                        <div class="seal-glow-pulse"></div>
+                        <img id="user-wax-seal" src="" alt="Your Wax Seal" class="seal-reveal-img">
+                    </div>
+                    <p class="seal-token-text">Unique Token: <code id="unique-token"></code></p>
+                    <button id="continue-btn" class="btn-primary full-width">
+                        Continue to Configuration →
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════ LOGIN PAGE ═══════════ -->
+        <div id="login-page" class="page">
+            <div class="page-bg-overlay"></div>
+            <div class="centered-card">
+                <div class="card-header-brand">
+                    <img src="trident-logo.png" class="card-trident" alt="trident">
+                    <h2>Welcome Back</h2>
+                    <img src="trident-logo.png" class="card-trident flip" alt="trident">
+                </div>
+
+                <div class="login-seal-display">
+                    <div class="seal-glow-pulse small"></div>
+                    <img id="login-wax-seal" src="" alt="Your Seal">
+                </div>
+
+                <div class="glow-input-wrap">
+                    <input type="text" id="login-name" placeholder="Your Full Name">
+                    <div class="input-glow-line"></div>
+                </div>
+
+                <div class="sig-section-header">
+                    <span>Sign to Authenticate</span>
+                    <div class="sig-section-line"></div>
+                </div>
+                <div class="sig-pad-wrapper">
+                    <canvas id="login-signature-pad" width="500" height="160"></canvas>
+                    <button id="clear-login-signature" class="btn-ghost-sm">✕ Clear</button>
+                </div>
+
+                <div class="pw-fallback-row">
+                    <span>Signature not matching?</span>
+                    <button id="show-password-login" class="btn-link">Use password</button>
+                </div>
+                <div id="password-login-section" class="glow-input-wrap" style="display:none;margin-top:10px;">
+                    <input type="password" id="login-password" placeholder="Backup Password">
+                    <div class="input-glow-line"></div>
+                </div>
+
+                <button id="login-btn" class="btn-primary full-width">Authenticate</button>
+                <div id="login-error" class="error-msg"></div>
+            </div>
+        </div>
+
+        <!-- ═══════════ CLOUD CONFIGURATION ═══════════ -->
+        <![CDATA[        <div id="cloud-page" class="page">
+            <div class="page-bg-overlay"></div>
+            
+            <!-- Artistic floating elements for configurator -->
+            <div class="energy-ribbon r2" style="--rotation: 10deg; top: 30%;"></div>
+            <div class="mandala-glow mg2" style="opacity: 0.3;"></div>
+            
+            <div class="cloud-layout">]]>
+                <div class="cloud-topbar">
+                    <div class="topbar-brand">
+                        <img src="method-media-logo.png" alt="MM" class="topbar-logo">
+                        <div>
+                            <span class="topbar-title">Solution Configurator</span>
+                            <span class="topbar-sub" id="config-username">Configure your package</span>
+                        </div>
+                    </div>
+                    <div class="topbar-right">
+                        <div class="topbar-seal-wrap">
+                            <img id="topbar-seal" src="" alt="seal" class="topbar-seal">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cloud-progress-bar">
+                    <div id="progress-fill" class="progress-fill"></div>
+                </div>
+
+                <div class="cloud-body">
+                    <button id="back-btn" class="btn-back" style="display:none;">← Back</button>
+                    <div id="cloud-stage" class="cloud-stage-area">
+                        <!-- Dynamic content -->
+                    </div>
+                </div>
+
+                <div class="cloud-footer-bar">
+                    <span id="next-preview" class="next-hint"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════ AGREEMENT PAGE ═══════════ -->
+        <div id="agreement-page" class="page">
+            <div class="page-bg-overlay"></div>
+            <div class="agreement-layout">
+                <div class="agreement-topbar">
+                    <img src="method-media-logo.png" alt="MM" class="topbar-logo">
+                    <h2 id="agreement-title">Master Services Agreement</h2>
+                    <img id="agreement-wax-seal-img" src="" alt="Seal" class="agreement-seal-small">
+                </div>
+
+                <div class="agreement-scroll-area" id="agreement-scroll-area">
+                    <div class="agreement-content-inner" id="agreement-content">
+                        <!-- Dynamic agreement content -->
+                    </div>
+
+                    <div class="fine-print-block">
+                        <h3>Terms &amp; Conditions</h3>
+                        <ol class="fine-print-list">
+                            <li><strong>Acceptance of Terms</strong> — By signing this Agreement, you acknowledge that you have read, understood, and agree to be bound by all terms herein.</li>
+                            <li><strong>Service Description</strong> — Method Media – Heavy Hitters provides custom software development, cloud hosting, AI integration, and related digital services as specified in Schedule A of this Agreement.</li>
+                            <li><strong>Payment Terms</strong> — All invoices are due Net 15 from date of issue. Overdue accounts attract interest at 2% per month. Method Media reserves the right to suspend deliverables for non-payment without further notice.</li>
+                            <li><strong>Intellectual Property</strong> — Method Media retains ownership of all proprietary frameworks and tooling. Upon receipt of final payment, client-specific customizations, branding assets, and compiled deliverables transfer to the client under a perpetual, non-exclusive licence unless Full Ownership option was selected.</li>
+                            <li><strong>Confidentiality</strong> — Both parties agree to hold in strict confidence all non-public information disclosed during this engagement. This obligation survives termination for a period of three (3) years.</li>
+                            <li><strong>Representations &amp; Warranties</strong> — Method Media warrants that all deliverables will conform to the specifications in Schedule A for a period of 90 days following delivery.</li>
+                            <li><strong>Limitation of Liability</strong> — In no event shall either party be liable for indirect, incidental, special, punitive, or consequential damages. Total liability is capped at the fees paid in the three months preceding the claim.</li>
+                            <li><strong>Termination</strong> — Either party may terminate with 30 days written notice. Completed milestones are billable upon termination. Deposits are non-refundable unless Method Media is in material breach.</li>
+                            <li><strong>Independent Contractor</strong> — Method Media operates as an independent contractor. Nothing herein creates an employment, partnership, or joint-venture relationship.</li>
+                            <li><strong>Third-Party Services</strong> — The Client is solely responsible for all charges, terms, and fees imposed by third-party providers (AWS, Google Cloud, Apple App Store, etc.) selected herein.</li>
+                            <li><strong>Force Majeure</strong> — Neither party shall be liable for delays caused by circumstances beyond reasonable control, including but not limited to natural disasters, internet outages, or governmental actions.</li>
+                            <li><strong>Governing Law &amp; Jurisdiction</strong> — This Agreement is governed by the laws of the Province of Alberta, Canada. Disputes shall be resolved in the courts of Calgary, Alberta, or by binding arbitration under the Arbitration Act (Alberta).</li>
+                            <li><strong>Entire Agreement</strong> — This document, together with all attached Schedules, constitutes the entire agreement and supersedes all prior negotiations, representations, or understandings.</li>
+                        </ol>
+                    </div>
+
+                    <div class="agreement-sign-block">
+                        <div class="scroll-notice" id="scroll-indicator">↓ Scroll to read all terms before signing</div>
+
+                        <label class="custom-checkbox">
+                            <input type="checkbox" id="agree-checkbox">
+                            <span class="cb-box"></span>
+                            <span>I have read and agree to all terms and conditions above</span>
+                        </label>
+
+                        <div id="signature-section" class="sign-action-block" style="display:none;">
+                            <div class="sign-header">
+                                <div class="sign-seal-wrap">
+                                    <img id="signature-wax-seal" src="" alt="Seal" class="sign-seal-img">
+                                </div>
+                                <div>
+                                    <h3>Authorized Signature</h3>
+                                    <p>Sign in the pad below to execute this agreement</p>
+                                </div>
+                            </div>
+                            <div class="sig-pad-wrapper dark">
+                                <canvas id="signature-pad" width="600" height="200"></canvas>
+                                <button id="clear-signature-btn" class="btn-ghost-sm">✕ Clear</button>
+                            </div>
+
+                            <div class="contact-grid">
+                                <div class="glow-input-wrap">
+                                    <input type="email" id="client-email" placeholder="Email Address" required>
+                                    <div class="input-glow-line"></div>
+                                </div>
+                                <div class="glow-input-wrap">
+                                    <input type="tel" id="client-phone" placeholder="Phone Number" required>
+                                    <div class="input-glow-line"></div>
+                                </div>
+                            </div>
+
+                            <button id="finalize-agreement-btn" class="btn-finalize">
+                                🔏 Seal &amp; Finalize Agreement
+                            </button>
+                            <div id="finalize-error" class="error-msg"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════ FINAL SUCCESS PAGE ═══════════ -->
+        <div id="final-agreement-page" class="page">
+            <div class="page-bg-overlay"></div>
+            <div class="success-layout">
+                <div class="success-header">
+                    <div class="success-icon">✔</div>
+                    <h1>Agreement Executed!</h1>
+                    <p>Your sealed agreement has been recorded.</p>
+                </div>
+                <div id="final-agreement-content" class="final-doc-preview"></div>
+                <div class="success-actions">
+                    <button id="view-contract-btn" class="btn-primary">📄 View Full Contract</button>
+                    <button id="download-btn" class="btn-secondary">⬇ Download Copy</button>
+                    <button id="new-agreement-btn" class="btn-ghost">+ New Agreement</button>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- end #app -->
+
+    <!-- ══════════════ SECRET ADMIN MODAL ══════════════ -->
+    <!-- Triggered by 5 rapid clicks on the mascot icon -->
+    <div id="admin-secret-overlay">
+        <div id="admin-secret-modal">
+            <div class="admin-modal-seal-wrap">
+                <img src="wax_seals/custom_wax_seal_1773187339589.png" alt="Owner Seal" class="admin-modal-seal" id="admin-seal-img">
+                <div class="admin-seal-glow"></div>
+            </div>
+            <div class="admin-modal-title">Owner Access</div>
+            <div class="admin-modal-subtitle">Secret Portal — Method Media</div>
+            <div class="admin-input-group">
+                <label class="admin-label">Username</label>
+                <input type="text" id="admin-username-input" placeholder="owner username" autocomplete="off">
+            </div>
+            <div class="admin-input-group">
+                <label class="admin-label">Password</label>
+                <input type="password" id="admin-password-input" placeholder="••••••••••">
+            </div>
+            <div id="admin-login-error" class="admin-error-msg"></div>
+            <div class="admin-modal-actions">
+                <button id="admin-login-btn" class="admin-btn-primary">
+                    <span>Enter</span>
+                </button>
+                <button id="admin-cancel-btn" class="admin-btn-ghost">Cancel</button>
+            </div>
+            <div class="admin-click-hint" id="admin-click-hint"></div>
+        </div>
+    </div>
+
+    <style>
+    /* ── Secret Admin Modal ── */
+    #admin-secret-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.85);
+        backdrop-filter: blur(12px);
+        z-index: 9999;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        animation: adminFadeIn 0.4s ease;
+    }
+    #admin-secret-overlay.active {
+        display: flex !important;
+    }
+
+    @keyframes adminFadeIn {
+        from { opacity: 0; transform: scale(0.92); }
+        to   { opacity: 1; transform: scale(1); }
+    }
+
+    #admin-secret-modal {
+        background: linear-gradient(145deg, #0a0a18, #12102a);
+        border: 1px solid rgba(245,150,50,0.4);
+        border-radius: 16px;
+        padding: 36px 32px 28px;
+        width: min(420px, 92vw);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        box-shadow:
+            0 0 0 1px rgba(245,150,50,0.15),
+            0 0 40px rgba(245,100,0,0.2),
+            0 20px 60px rgba(0,0,0,0.8);
+        position: relative;
+    }
+
+    .admin-modal-seal-wrap {
+        position: relative;
+        width: 110px;
+        height: 110px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .admin-modal-seal {
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
+        position: relative;
+        z-index: 1;
+        filter: drop-shadow(0 0 12px rgba(245,150,50,0.6));
+        animation: sealPulse 3s ease-in-out infinite;
+    }
+    @keyframes sealPulse {
+        0%, 100% { filter: drop-shadow(0 0 10px rgba(245,150,50,0.5)); }
+        50%       { filter: drop-shadow(0 0 22px rgba(245,100,0,0.85)); }
+    }
+
+    .admin-seal-glow {
+        position: absolute;
+        inset: -15px;
+        background: radial-gradient(circle, rgba(245,120,0,0.2) 0%, transparent 70%);
+        border-radius: 50%;
+        animation: sealGlow 3s ease-in-out infinite;
+    }
+    @keyframes sealGlow {
+        0%, 100% { opacity: 0.5; transform: scale(1); }
+        50%       { opacity: 1;   transform: scale(1.1); }
+    }
+
+    .admin-modal-title {
+        font-family: 'Cinzel Decorative', serif;
+        font-size: 1.2rem;
+        color: #f5961e;
+        letter-spacing: 0.1em;
+        text-shadow: 0 0 12px rgba(245,150,30,0.5);
+    }
+
+    .admin-modal-subtitle {
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 0.8rem;
+        color: rgba(245,200,100,0.5);
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-top: -8px;
+    }
+
+    .admin-input-group {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .admin-label {
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 0.72rem;
+        color: rgba(245,150,50,0.6);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+
+    #admin-username-input,
+    #admin-password-input {
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(245,150,50,0.3);
+        border-radius: 8px;
+        padding: 10px 14px;
+        color: #f0e8d0;
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 0.95rem;
+        width: 100%;
+        outline: none;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    #admin-username-input:focus,
+    #admin-password-input:focus {
+        border-color: rgba(245,150,50,0.7);
+        box-shadow: 0 0 0 3px rgba(245,100,0,0.12);
+    }
+
+    .admin-error-msg {
+        color: #ff6b6b;
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 0.82rem;
+        min-height: 18px;
+        text-align: center;
+    }
+
+    .admin-modal-actions {
+        display: flex;
+        gap: 12px;
+        width: 100%;
+    }
+
+    .admin-btn-primary {
+        flex: 1;
+        background: linear-gradient(135deg, #c45c00, #f5820a);
+        border: 1px solid rgba(245,150,50,0.5);
+        border-radius: 8px;
+        color: #fff;
+        font-family: 'Cinzel', serif;
+        font-size: 0.9rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        padding: 11px 20px;
+        cursor: pointer;
+        transition: all 0.2s;
+        box-shadow: 0 4px 15px rgba(200,80,0,0.4);
+    }
+    .admin-btn-primary:hover {
+        background: linear-gradient(135deg, #d96800, #ff9520);
+        box-shadow: 0 6px 20px rgba(200,80,0,0.6);
+        transform: translateY(-1px);
+    }
+
+    .admin-btn-ghost {
+        background: transparent;
+        border: 1px solid rgba(245,200,66,0.2);
+        border-radius: 8px;
+        color: rgba(245,200,66,0.5);
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 0.88rem;
+        padding: 11px 18px;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    .admin-btn-ghost:hover {
+        border-color: rgba(245,200,66,0.4);
+        color: rgba(245,200,66,0.8);
+    }
+
+    .admin-click-hint {
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 0.68rem;
+        color: rgba(245,150,50,0.25);
+        letter-spacing: 0.08em;
+    }
+    </style>
+
+    <script src="app.js"></script>
+</body>
+</html>

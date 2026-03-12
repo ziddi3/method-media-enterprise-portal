@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MMHH QR Code Scanner</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Custom Method Media Branding */
+        .made-by-super-ninja {
+            display: none !important;
+        }
+        
+        .method-media-branding {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .method-media-branding:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        
+        .branding-bubble {
+            background: linear-gradient(135deg, #0066cc, #00aaff);
+            border: 2px solid #00d4ff;
+            border-radius: 50px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 20px rgba(0, 102, 204, 0.4);
+            backdrop-filter: blur(10px);
+        }
+        
+        .branding-logo {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #1a1a3e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            border: 1px solid #00d4ff;
+        }
+        
+        .branding-text {
+            color: #ffffff;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+        
+        a[href*="ninjatech.ai"] {
+            display: none !important;
+        }
+    </style>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: #0a0a1f;
+            color: #ffffff;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .background-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(0, 100, 200, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 150, 255, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #0a0a1f 0%, #1a1a3e 50%, #0a0a1f 100%);
+            z-index: -2;
+        }
+        
+        .circuit-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 35px, rgba(0, 150, 255, 0.1) 35px, rgba(0, 150, 255, 0.1) 70px),
+                repeating-linear-gradient(90deg, transparent, transparent 35px, rgba(0, 150, 255, 0.1) 35px, rgba(0, 150, 255, 0.1) 70px);
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 0;
+            background: linear-gradient(135deg, rgba(0, 100, 200, 0.3), rgba(0, 150, 255, 0.1));
+            border-radius: 20px;
+            border: 2px solid rgba(0, 150, 255, 0.3);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5em;
+            font-weight: 900;
+            color: #00d4ff;
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            color: #88ccff;
+            margin-bottom: 20px;
+        }
+        
+        .qr-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+        
+        .qr-container {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 20px;
+            border: 2px solid rgba(0, 150, 255, 0.3);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        
+        .qr-image {
+            max-width: 300px;
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .instructions {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 150, 255, 0.3);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .instructions h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: #00ff96;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            text-shadow: 0 0 15px rgba(0, 255, 150, 0.3);
+        }
+        
+        .instructions ul {
+            list-style: none;
+            margin-left: 0;
+        }
+        
+        .instructions li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .instructions li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #00d4ff;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #0066cc, #00aaff);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.3);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 102, 204, 0.4);
+            background: linear-gradient(135deg, #0088ff, #00ccff);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #00cc66, #00ff88);
+        }
+        
+        .btn-success:hover {
+            background: linear-gradient(135deg, #00ff88, #00ffaa);
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 700;
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .notification.success {
+            background: linear-gradient(135deg, #00cc66, #00ff88);
+        }
+        
+        .notification.info {
+            background: linear-gradient(135deg, #0066cc, #00aaff);
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .qr-container {
+                padding: 20px;
+            }
+            
+            .qr-image {
+                max-width: 250px;
+            }
+        }
+    </style>
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <div class="background-overlay"></div>
+    <div class="circuit-pattern"></div>
+    
+    <div class="container">
+        <header>
+            <h1>Method Media: Heavy Hitters</h1>
+            <div class="subtitle">QR Code Access Portal</div>
+        </header>
+        
+        <div class="qr-section">
+            <div class="qr-container">
+                <h2 style="color: #00ff96; margin-bottom: 20px; font-family: 'Orbitron', sans-serif;">
+                    <i class="fas fa-qrcode"></i> Scan to Access Agreement
+                </h2>
+                <img src="https://sites.super.myninja.ai/97e4bb4e-8470-4ebe-aa33-fa02eb5624f0/8bb7ea5e/mmhh_qr_fixed.png" alt="MMHH QR Code" class="qr-image">
+                <p style="margin-top: 20px; color: #88ccff;">
+                    Scan this QR code with your mobile device to access the Master Services Agreement
+                </p>
+            </div>
+            
+            <div class="instructions">
+                <h2>How to Access</h2>
+                <ul>
+                    <li>Open your mobile device camera or QR scanner app</li>
+                    <li>Point the camera at the QR code above</li>
+                    <li>Tap the notification that appears to open the link</li>
+                    <li>Review and sign the agreement digitally</li>
+                    <li>Download your signed copy for your records</li>
+                </ul>
+                
+                <div class="button-group">
+                    <a href="https://sites.super.myninja.ai/97e4bb4e-8470-4ebe-aa33-fa02eb5624f0/439997b0/master_services_agreement_fixed.html" class="btn btn-success" target="_blank">
+                        <i class="fas fa-file-contract"></i> Open Agreement
+                    </a>
+                    <a href="https://sites.super.myninja.ai/97e4bb4e-8470-4ebe-aa33-fa02eb5624f0/8bb7ea5e/mmhh_qr_fixed.png" download="MMHH_QR_Code.png" class="btn">
+                        <i class="fas fa-download"></i> Download QR Code
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+        
+        // Test QR code link
+        function testQRLink() {
+            fetch('mmhh_qr_fixed.png')
+                .then(response => {
+                    if (response.ok) {
+                        showNotification('QR Code loaded successfully', 'success');
+                    } else {
+                        showNotification('QR Code not found', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('QR Code test error:', error);
+                    showNotification('Error loading QR Code', 'error');
+                });
+        }
+        
+        // Test on page load
+        document.addEventListener('DOMContentLoaded', testQRLink);
+    </script>
+    
+    <!-- Method Media Branding -->
+    <div class="method-media-branding" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <div class="branding-bubble">
+            <div class="branding-logo">❄️🔥</div>
+            <div class="branding-text">Made by Method Media</div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MASTER SERVICES AGREEMENT - Method Media: Heavy Hitters</title>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: #0a0a1f;
+            color: #ffffff;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .background-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(0, 100, 200, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 150, 255, 0.15) 0%, transparent 50%),
+                linear-gradient(135deg, #0a0a1f 0%, #1a1a3e 50%, #0a0a1f 100%);
+            z-index: -2;
+        }
+        
+        .circuit-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 35px, rgba(0, 150, 255, 0.15) 35px, rgba(0, 150, 255, 0.15) 70px),
+                repeating-linear-gradient(90deg, transparent, transparent 35px, rgba(0, 150, 255, 0.15) 35px, rgba(0, 150, 255, 0.15) 70px);
+            z-index: -1;
+        }
+        
+        .hexagon-decoration {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, rgba(0, 100, 200, 0.2), rgba(0, 150, 255, 0.1));
+            clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+            z-index: -1;
+        }
+        
+        .hex1 { top: 10%; left: 5%; }
+        .hex2 { top: 20%; right: 8%; }
+        .hex3 { bottom: 15%; left: 7%; }
+        .hex4 { bottom: 25%; right: 5%; }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 50px 0;
+            background: linear-gradient(135deg, rgba(0, 50, 150, 0.3), rgba(0, 100, 200, 0.2));
+            border-radius: 25px;
+            border: 2px solid rgba(0, 150, 255, 0.4);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(0, 150, 255, 0.05) 10px,
+                rgba(0, 150, 255, 0.05) 20px
+            );
+            animation: slide 20s linear infinite;
+        }
+        
+        @keyframes slide {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(20px, 20px); }
+        }
+        
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3em;
+            font-weight: 900;
+            color: #00d4ff;
+            text-shadow: 0 0 40px rgba(0, 212, 255, 0.7);
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .subtitle {
+            font-size: 1.3em;
+            color: #88ccff;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .parties {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 40px;
+            gap: 30px;
+        }
+        
+        .party {
+            background: linear-gradient(135deg, rgba(0, 50, 150, 0.2), rgba(0, 100, 200, 0.1));
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid rgba(0, 150, 255, 0.3);
+            flex: 1;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .party::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            animation: glow 3s ease-in-out infinite;
+        }
+        
+        @keyframes glow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        .party h3 {
+            color: #00ff96;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+            text-shadow: 0 0 20px rgba(0, 255, 150, 0.5);
+        }
+        
+        .special-offer {
+            background: linear-gradient(135deg, rgba(0, 255, 150, 0.2), rgba(0, 150, 255, 0.15));
+            border: 2px solid #00ff96;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 255, 150, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .special-offer::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #00ff96, #00d4ff, #00ff96);
+            border-radius: 20px;
+            z-index: -1;
+            animation: borderGlow 3s linear infinite;
+        }
+        
+        @keyframes borderGlow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        .special-offer h2 {
+            color: #00ff96;
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            text-shadow: 0 0 25px rgba(0, 255, 150, 0.7);
+        }
+        
+        .price-comparison {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin: 20px 0;
+        }
+        
+        .original-price {
+            font-size: 1.8em;
+            color: #888;
+            text-decoration: line-through;
+        }
+        
+        .discounted-price {
+            font-size: 2.5em;
+            color: #00ff96;
+            font-weight: 900;
+            text-shadow: 0 0 20px rgba(0, 255, 150, 0.8);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .discount-badge {
+            background: linear-gradient(135deg, #ff4444, #ff6666);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(255, 68, 68, 0.4);
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .content-section {
+            background: linear-gradient(135deg, rgba(0, 50, 150, 0.2), rgba(0, 100, 200, 0.1));
+            margin-bottom: 35px;
+            padding: 35px;
+            border-radius: 20px;
+            border: 2px solid rgba(0, 150, 255, 0.3);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .content-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            animation: glow 3s ease-in-out infinite;
+        }
+        
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: #00d4ff;
+            margin-bottom: 25px;
+            font-size: 2em;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+        
+        .pricing-table {
+            background: linear-gradient(135deg, rgba(0, 50, 150, 0.2), rgba(0, 100, 200, 0.1));
+            border: 2px solid rgba(0, 150, 255, 0.4);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 25px 0;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border: 1px solid rgba(0, 150, 255, 0.4);
+        }
+        
+        th {
+            background: linear-gradient(135deg, rgba(0, 100, 200, 0.3), rgba(0, 150, 255, 0.2));
+            color: #00d4ff;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+        
+        .total-row {
+            background: linear-gradient(135deg, rgba(0, 255, 150, 0.2), rgba(0, 200, 100, 0.1));
+            font-weight: 700;
+            color: #00ff96;
+            text-shadow: 0 0 15px rgba(0, 255, 150, 0.5);
+        }
+        
+        .stage-pricing {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .original-stage-price {
+            font-size: 0.9em;
+            color: #888;
+            text-decoration: line-through;
+        }
+        
+        .discounted-stage-price {
+            font-weight: 700;
+            color: #00ff96;
+            text-shadow: 0 0 10px rgba(0, 255, 150, 0.5);
+        }
+        
+        .signature-section {
+            background: linear-gradient(135deg, rgba(0, 50, 150, 0.2), rgba(0, 100, 200, 0.1));
+            padding: 35px;
+            border-radius: 20px;
+            border: 2px solid rgba(0, 150, 255, 0.3);
+            margin-top: 35px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .signature-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 35px;
+            margin: 25px 0;
+        }
+        
+        .signature-box {
+            flex: 1;
+        }
+        
+        .signature-box h3 {
+            color: #00ff96;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+            text-shadow: 0 0 15px rgba(0, 255, 150, 0.5);
+        }
+        
+        .signature-pad {
+            border: 2px solid rgba(0, 150, 255, 0.5);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            height: 150px;
+            width: 100%;
+            cursor: crosshair;
+            touch-action: none;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 18px;
+            margin-top: 18px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #0066cc, #00aaff);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 102, 204, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0, 102, 204, 0.5);
+            background: linear-gradient(135deg, #0088ff, #00ccff);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #ff4444, #ff6666);
+        }
+        
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #ff6666, #ff8888);
+            box-shadow: 0 12px 25px rgba(255, 68, 68, 0.5);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #00cc66, #00ff88);
+        }
+        
+        .btn-success:hover {
+            background: linear-gradient(135deg, #00ff88, #00ffaa);
+            box-shadow: 0 12px 25px rgba(0, 204, 102, 0.5);
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 18px 28px;
+            border-radius: 15px;
+            color: white;
+            font-weight: 700;
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+        }
+        
+        .notification.success {
+            background: linear-gradient(135deg, #00cc66, #00ff88);
+        }
+        
+        .notification.error {
+            background: linear-gradient(135deg, #ff4444, #ff6666);
+        }
+        
+        .notification.info {
+            background: linear-gradient(135deg, #0066cc, #00aaff);
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Custom Method Media Branding */
+        .made-by-super-ninja {
+            display: none !important;
+        }
+        
+        .method-media-branding {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 1000;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .method-media-branding:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        
+        .branding-bubble {
+            background: linear-gradient(135deg, #0066cc, #00aaff);
+            border: 2px solid #00d4ff;
+            border-radius: 50px;
+            padding: 12px 22px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 8px 25px rgba(0, 102, 204, 0.5);
+            backdrop-filter: blur(10px);
+        }
+        
+        .branding-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #1a1a3e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            border: 2px solid #00d4ff;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+        }
+        
+        .branding-text {
+            color: #ffffff;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            text-shadow: 0 0 12px rgba(0, 212, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        a[href*="ninjatech.ai"] {
+            display: none !important;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .parties {
+                flex-direction: column;
+            }
+            
+            .party {
+                margin: 15px 0;
+            }
+            
+            .signature-container {
+                flex-direction: column;
+            }
+            
+            .price-comparison {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .method-media-branding {
+                bottom: 15px;
+                right: 15px;
+            }
+        }
+        
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+            
+            .background-overlay, .circuit-pattern, .hexagon-decoration {
+                display: none;
+            }
+            
+            .button-group, .method-media-branding {
+                display: none;
+            }
+            
+            .content-section, .signature-section {
+                background: white;
+                border: 1px solid #333;
+            }
+            
+            h1, h2, h3 {
+                color: #333;
+            }
+            
+            .signature-pad {
+                border: 1px solid #333;
+                background: white;
+            }
+        }
+    </style>
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <div class="background-overlay"></div>
+    <div class="circuit-pattern"></div>
+    <div class="hexagon-decoration hex1"></div>
+    <div class="hexagon-decoration hex2"></div>
+    <div class="hexagon-decoration hex3"></div>
+    <div class="hexagon-decoration hex4"></div>
+    
+    <div class="container">
+        <header>
+            <h1>MASTER SERVICES AGREEMENT</h1>
+            <div class="subtitle">Custom Enterprise Mobile Application Development</div>
+        </header>
+        
+        <section class="parties">
+            <div class="party">
+                <h3>AGENCY</h3>
+                <p><strong>Method Media: Heavy Hitters</strong> ("MMHH")</p>
+                <p>Service Provider</p>
+            </div>
+            <div class="party">
+                <h3>CLIENT</h3>
+                <p><strong>Curtis</strong> ("Client")</p>
+                <p>Project Owner</p>
+            </div>
+        </section>
+        
+        <div class="special-offer">
+            <div class="discount-badge">LIMITED TIME OFFER - 80% OFF</div>
+            <h2>SPECIAL PRICING AVAILABLE NOW</h2>
+            <div class="price-comparison">
+                <div class="original-price">$245,000</div>
+                <div class="discounted-price">$49,000</div>
+            </div>
+            <p>Save $196,000 with this exclusive discount!</p>
+        </div>
+        
+        <section class="content-section">
+            <h2>1. PARTIES & OBJECTIVE</h2>
+            <p><strong>1.1</strong> The Agency Method Media: Heavy Hitters (MMHH) agrees to design, develop, and deploy a custom software ecosystem. MMHH retains all creative and technical control over the development process until final handover.</p>
+            <p><strong>1.2</strong> The Client Curtis agrees to the financial terms set forth below in exchange for the development of a proprietary mobile application featuring AI field assistance, automated routing, and dynamic invoicing logic.</p>
+        </section>
+        
+        <section class="content-section">
+            <h2>2. THE "PAY-GATE" PROTOCOL</h2>
+            <p>To ensure project velocity and financial security, this project utilizes a Pre-Funded Milestone Model:</p>
+            <ul style="margin-left: 20px;">
+                <li><strong>No Credit:</strong> This is not a credit account.</li>
+                <li><strong>Gatekeeping:</strong> Work on a subsequent stage will not commence until the invoice for that stage is paid in full.</li>
+                <li><strong>Sequential Delivery:</strong> Stages are completed linearly. The Client must sign off on the current stage before the next invoice is issued.</li>
+            </ul>
+        </section>
+        
+        <section class="pricing-table">
+            <h3>3. INVESTMENT SUMMARY</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>STAGE</th>
+                        <th>PHASE DESCRIPTION</th>
+                        <th>DELIVERABLES</th>
+                        <th>COST (USD)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>01</strong></td>
+                        <td>Blueprint & Design</td>
+                        <td>UI/UX Wireframes, Brand Assets, Tech Spec.</td>
+                        <td>
+                            <div class="stage-pricing">
+                                <span class="original-stage-price">$35,000</span>
+                                <span class="discounted-stage-price">$7,000</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>02</strong></td>
+                        <td>Core Infrastructure</td>
+                        <td>Database Setup, API Architecture, Security.</td>
+                        <td>
+                            <div class="stage-pricing">
+                                <span class="original-stage-price">$60,000</span>
+                                <span class="discounted-stage-price">$12,000</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>03</strong></td>
+                        <td>Logic & AI Engine</td>
+                        <td>"Field Agent" AI, Routing Algorithms, Math Logic.</td>
+                        <td>
+                            <div class="stage-pricing">
+                                <span class="original-stage-price">$65,000</span>
+                                <span class="discounted-stage-price">$13,000</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>04</strong></td>
+                        <td>Application Build</td>
+                        <td>Native Mobile App (Front-end), Hardware Integration.</td>
+                        <td>
+                            <div class="stage-pricing">
+                                <span class="original-stage-price">$60,000</span>
+                                <span class="discounted-stage-price">$12,000</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>05</strong></td>
+                        <td>Launch & Handover</td>
+                        <td>QA Testing, Cloud Deployment, Admin Training.</td>
+                        <td>
+                            <div class="stage-pricing">
+                                <span class="original-stage-price">$25,000</span>
+                                <span class="discounted-stage-price">$5,000</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="total-row">
+                        <td colspan="3"><strong>TOTAL PROJECT VALUE</strong></td>
+                        <td>
+                            <div class="stage-pricing">
+                                <span class="original-stage-price">$245,000</span>
+                                <span class="discounted-stage-price">$49,000</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="content-section">
+            <h2>4. GENERAL TERMS</h2>
+            <ul style="margin-left: 20px;">
+                <li><strong>Intellectual Property:</strong> Upon final payment of Stage 05, MMHH transfers 100% ownership of the custom code and database schema to the Client. MMHH retains the rights to its underlying "Heavy Hitter" reusable code libraries.</li>
+                <li><strong>Termination:</strong> The Client may terminate this agreement at the end of any stage by simply not funding the next stage. No refunds are issued for completed or in-progress stages.</li>
+                <li><strong>Exclusions:</strong> Ongoing costs for server hosting (AWS/Azure), Google Maps APIs, and AI Token usage are the responsibility of the Client and will be billed directly to the Client's credit card by the third-party providers.</li>
+            </ul>
+        </section>
+        
+        <section class="content-section">
+            <h2>5. EXECUTION</h2>
+            <p>By signing below, the Client acknowledges the total estimated cost and agrees to the Pre-Funded Milestone Model.</p>
+        </section>
+        
+        <section class="signature-section">
+            <h2>SIGNATURES</h2>
+            <div class="signature-container">
+                <div class="signature-box">
+                    <h3>AGENCY (MMHH)</h3>
+                    <canvas id="agencySignature" class="signature-pad"></canvas>
+                    <div class="button-group">
+                        <button class="btn btn-danger" onclick="clearSignature('agency')">Clear</button>
+                        <button class="btn" onclick="saveSignature('agency')">Save</button>
+                    </div>
+                    <p style="margin-top: 18px;">Authorized Signature</p>
+                </div>
+                
+                <div class="signature-box">
+                    <h3>CLIENT (Curtis)</h3>
+                    <canvas id="clientSignature" class="signature-pad"></canvas>
+                    <div class="button-group">
+                        <button class="btn btn-danger" onclick="clearSignature('client')">Clear</button>
+                        <button class="btn" onclick="saveSignature('client')">Save</button>
+                    </div>
+                    <p style="margin-top: 18px;">Authorized Signature</p>
+                </div>
+            </div>
+            
+            <div class="button-group" style="margin-top: 35px;">
+                <button class="btn btn-success" onclick="generatePDF()">
+                    <i class="fas fa-file-pdf"></i> Download Signed PDF
+                </button>
+                <button class="btn" onclick="window.print()">
+                    <i class="fas fa-print"></i> Print Agreement
+                </button>
+                <button class="btn" onclick="saveProgress()">
+                    <i class="fas fa-save"></i> Auto-Save Progress
+                </button>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Method Media Branding -->
+    <div class="method-media-branding" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <div class="branding-bubble">
+            <div class="branding-logo">❄️🔥</div>
+            <div class="branding-text">Made by Method Media</div>
+        </div>
+    </div>
+    
+    <script>
+        let agencySignaturePad, clientSignaturePad;
+        let savedSignatures = {};
+        
+        // Initialize signature pads
+        function initializeSignatures() {
+            // Agency signature pad
+            const agencyCanvas = document.getElementById('agencySignature');
+            agencySignaturePad = new SignaturePad(agencyCanvas, {
+                backgroundColor: 'rgb(255, 255, 255)',
+                penColor: 'rgb(0, 102, 204)',
+                minWidth: 1,
+                maxWidth: 3
+            });
+            
+            // Client signature pad
+            const clientCanvas = document.getElementById('clientSignature');
+            clientSignaturePad = new SignaturePad(clientCanvas, {
+                backgroundColor: 'rgb(255, 255, 255)',
+                penColor: 'rgb(0, 102, 204)',
+                minWidth: 1,
+                maxWidth: 3
+            });
+            
+            // Load saved signatures if they exist
+            loadSavedSignatures();
+            
+            // Set up canvas dimensions
+            resizeCanvases();
+            window.addEventListener('resize', resizeCanvases);
+        }
+        
+        function resizeCanvases() {
+            const canvases = document.querySelectorAll('.signature-pad');
+            canvases.forEach(canvas => {
+                const ratio = Math.max(window.devicePixelRatio || 1, 1);
+                canvas.width = canvas.offsetWidth * ratio;
+                canvas.height = canvas.offsetHeight * ratio;
+                canvas.getContext('2d').scale(ratio, ratio);
+                
+                // Redraw signature if it exists
+                if (canvas.id === 'agencySignature' && savedSignatures.agency) {
+                    agencySignaturePad.fromDataURL(savedSignatures.agency);
+                } else if (canvas.id === 'clientSignature' && savedSignatures.client) {
+                    clientSignaturePad.fromDataURL(savedSignatures.client);
+                }
+            });
+        }
+        
+        function clearSignature(type) {
+            if (type === 'agency') {
+                agencySignaturePad.clear();
+                delete savedSignatures.agency;
+            } else {
+                clientSignaturePad.clear();
+                delete savedSignatures.client;
+            }
+            localStorage.setItem('savedSignatures', JSON.stringify(savedSignatures));
+            showNotification('Signature cleared', 'info');
+        }
+        
+        function saveSignature(type) {
+            if (type === 'agency') {
+                if (agencySignaturePad.isEmpty()) {
+                    showNotification('Please provide a signature first', 'error');
+                    return;
+                }
+                savedSignatures.agency = agencySignaturePad.toDataURL();
+            } else {
+                if (clientSignaturePad.isEmpty()) {
+                    showNotification('Please provide a signature first', 'error');
+                    return;
+                }
+                savedSignatures.client = clientSignaturePad.toDataURL();
+            }
+            localStorage.setItem('savedSignatures', JSON.stringify(savedSignatures));
+            showNotification('Signature saved successfully', 'success');
+        }
+        
+        function loadSavedSignatures() {
+            const saved = localStorage.getItem('savedSignatures');
+            if (saved) {
+                savedSignatures = JSON.parse(saved);
+                
+                // Restore signatures
+                setTimeout(() => {
+                    if (savedSignatures.agency && agencySignaturePad) {
+                        agencySignaturePad.fromDataURL(savedSignatures.agency);
+                    }
+                    if (savedSignatures.client && clientSignaturePad) {
+                        clientSignaturePad.fromDataURL(savedSignatures.client);
+                    }
+                }, 100);
+            }
+        }
+        
+        function saveProgress() {
+            localStorage.setItem('savedSignatures', JSON.stringify(savedSignatures));
+            showNotification('Progress auto-saved', 'success');
+        }
+        
+        function generatePDF() {
+            showNotification('Generating PDF...', 'info');
+            
+            // Hide buttons temporarily
+            const buttons = document.querySelectorAll('.button-group');
+            const branding = document.querySelector('.method-media-branding');
+            buttons.forEach(btn => btn.style.display = 'none');
+            branding.style.display = 'none';
+            
+            html2canvas(document.querySelector('.container'), {
+                scale: 2,
+                useCORS: true,
+                logging: false
+            }).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jspdf.jsPDF('p', 'mm', 'a4');
+                
+                const imgWidth = 210;
+                const pageHeight = 297;
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                let heightLeft = imgHeight;
+                let position = 0;
+                
+                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+                
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                }
+                
+                pdf.save('MMHH_Master_Services_Agreement.pdf');
+                
+                // Show buttons again
+                buttons.forEach(btn => btn.style.display = 'flex');
+                branding.style.display = 'flex';
+                
+                showNotification('PDF downloaded successfully', 'success');
+            }).catch(error => {
+                console.error('PDF generation error:', error);
+                showNotification('Error generating PDF', 'error');
+                
+                // Show buttons again
+                buttons.forEach(btn => btn.style.display = 'flex');
+                branding.style.display = 'flex';
+            });
+        }
+        
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+        
+        // Auto-save every 30 seconds
+        setInterval(saveProgress, 30000);
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initializeSignatures);
+    </script>
+</body>
+</html>

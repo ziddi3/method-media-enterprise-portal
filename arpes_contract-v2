@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body { font-family: sans-serif; line-height: 1.5; color: #333; max-width: 800px; margin: 40px auto; padding: 20px; border: 1px solid #eee; }
+        h1, h2 { color: #1a1a1a; border-bottom: 2px solid #0056b3; padding-bottom: 10px; }
+        .milestone-box { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; background: #f9f9f9; }
+        .sig-line { margin-top: 10px; border-top: 1px solid #000; width: 200px; display: inline-block; }
+        .price { font-weight: bold; color: #0056b3; float: right; }
+        .disclaimer { font-size: 0.8em; color: #666; font-style: italic; }
+    </style>
+</head>
+<body>
+    <h1>Custom System Development Agreement</h1>
+    <p><strong>Provider:</strong> Method Media / Method-HVAC<br>
+    <strong>Client:</strong> __________________________</p>
+
+    <h2>Total Project Investment: $59,000</h2>
+
+    <div class="milestone-box">
+        <h3>Milestone 1: Discovery & Architecture (25%) <span class="price">$14,750</span></h3>
+        <p>Deep-dive workflow audit, technical requirements document, and UI/UX wireframing.</p>
+        <p class="disclaimer">Sign-off: I approve the strategic direction and authorize Milestone 2 payment.</p>
+        <p>Signature: __________________________ Date: __________</p>
+    </div>
+
+    <div class="milestone-box">
+        <h3>Milestone 2: Core Engine Development (20%) <span class="price">$11,800</span></h3>
+        <p>Database architecture, backend logic integration, and API environment setup.</p>
+        <p class="disclaimer">Sign-off: I confirm the core functionality meets expectations. Authorize Milestone 3 payment.</p>
+        <p>Signature: __________________________ Date: __________</p>
+    </div>
+
+    <div class="milestone-box">
+        <h3>Milestone 3: UI Customization & Branding (20%) <span class="price">$11,800</span></h3>
+        <p>Full custom-branded interface, field technician dashboard, and client-facing portals.</p>
+        <p class="disclaimer">Sign-off: I approve the visual design and brand integration. Authorize Milestone 4 payment.</p>
+        <p>Signature: __________________________ Date: __________</p>
+    </div>
+
+    <div class="milestone-box">
+        <h3>Milestone 4: Systems Integration & QA (15%) <span class="price">$8,850</span></h3>
+        <p>Third-party software syncing (QuickBooks, CRM, etc.) and rigorous stress testing.</p>
+        <p class="disclaimer">Sign-off: I confirm system stability and integration accuracy. Authorize Final payment.</p>
+        <p>Signature: __________________________ Date: __________</p>
+    </div>
+
+    <div class="milestone-box">
+        <h3>Milestone 5: Deployment & Training (20%) <span class="price">$11,800</span></h3>
+        <p>Live server migration, staff onboarding, and "Go-Live" operational support.</p>
+        <p>Signature: __________________________ Date: __________</p>
+    </div>
+
+    <p><em>Final Intellectual Property transfer occurs only upon the clearance of the final 20% payment.</em></p>
+</body>
+</html>

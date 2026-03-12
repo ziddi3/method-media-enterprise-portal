@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bill of Sale - Method Media</title>
+  <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap');
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Rajdhani', sans-serif;
+        background: #000000;
+        color: #ffffff;
+        line-height: 1.6;
+        position: relative;
+        overflow-x: hidden;
+        min-height: 100vh;
+    }
+    
+    /* Cosmic background with stars and nebula */
+    .cosmic-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: 
+            radial-gradient(ellipse at 20% 30%, rgba(138, 43, 226, 0.3) 0%, transparent 50%),
+            radial-gradient(ellipse at 80% 70%, rgba(255, 20, 147, 0.3) 0%, transparent 50%),
+            radial-gradient(ellipse at 50% 50%, rgba(0, 100, 255, 0.2) 0%, transparent 60%),
+            #000000;
+        z-index: -2;
+    }
+    
+    /* Animated stars */
+    .stars {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+            radial-gradient(2px 2px at 20% 30%, white, transparent),
+            radial-gradient(2px 2px at 60% 70%, white, transparent),
+            radial-gradient(1px 1px at 50% 50%, white, transparent),
+            radial-gradient(1px 1px at 80% 10%, white, transparent),
+            radial-gradient(2px 2px at 90% 60%, white, transparent),
+            radial-gradient(1px 1px at 33% 80%, white, transparent),
+            radial-gradient(1px 1px at 15% 90%, white, transparent);
+        background-size: 200% 200%;
+        animation: twinkle 4s ease-in-out infinite;
+        z-index: -1;
+        opacity: 0.6;
+    }
+    
+    @keyframes twinkle {
+        0%, 100% { opacity: 0.6; }
+        50% { opacity: 1; }
+    }
+    
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px 20px 100px;
+        position: relative;
+        z-index: 1;
+    }
+    
+    /* Header with Method Media logo */
+    .header {
+        text-align: center;
+        margin-bottom: 30px;
+        position: relative;
+    }
+    
+    .method-media-logo {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 28px;
+        font-weight: 700;
+        color: #ffffff;
+        letter-spacing: 8px;
+        margin-bottom: 20px;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+    }
+    
+    .document-id {
+        display: inline-block;
+        padding: 8px 20px;
+        background: rgba(100, 50, 200, 0.3);
+        border: 1px solid rgba(138, 43, 226, 0.5);
+        border-radius: 20px;
+        font-size: 12px;
+        color: #ffffff;
+        margin-bottom: 20px;
+    }
+    
+    .document-title {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 48px;
+        font-weight: 900;
+        color: #ffffff;
+        text-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+        margin: 20px 0;
+    }
+    
+    /* Content sections */
+    .content-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin-bottom: 30px;
+    }
+    
+    .section {
+        background: rgba(20, 10, 40, 0.6);
+        border: 1px solid rgba(138, 43, 226, 0.3);
+        border-radius: 10px;
+        padding: 20px;
+        backdrop-filter: blur(10px);
+    }
+    
+    .section-title {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        color: #ff69b4;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 15px;
+    }
+    
+    .info-row {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px 0;
+        font-size: 14px;
+    }
+    
+    .info-label {
+        color: #888;
+        font-size: 12px;
+    }
+    
+    .info-value {
+        color: #ffffff;
+        font-weight: 600;
+    }
+    
+    .full-width-section {
+        grid-column: 1 / -1;
+    }
+    
+    .price-display {
+        font-size: 24px;
+        color: #00ff88;
+        font-weight: 900;
+        text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+    }
+    
+    /* Terms list */
+    .terms-list {
+        list-style: none;
+        margin: 15px 0;
+    }
+    
+    .terms-list li {
+        margin: 10px 0;
+        padding-left: 25px;
+        position: relative;
+        font-size: 13px;
+        line-height: 1.6;
+        color: #ccc;
+    }
+    
+    .terms-list li::before {
+        content: '▸';
+        position: absolute;
+        left: 0;
+        color: #ff69b4;
+        font-weight: bold;
+    }
+    
+    /* Signature sections */
+    .signature-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin: 30px 0;
+    }
+    
+    .signature-box {
+        background: rgba(20, 10, 40, 0.6);
+        border: 1px solid rgba(138, 43, 226, 0.3);
+        border-radius: 10px;
+        padding: 20px;
+        backdrop-filter: blur(10px);
+    }
+    
+    .signature-label {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        color: #ffffff;
+        margin-bottom: 10px;
+        display: block;
+    }
+    
+    .signature-canvas {
+        width: 100%;
+        height: 120px;
+        border: 1px solid rgba(138, 43, 226, 0.5);
+        border-radius: 8px;
+        background: #000000;
+        touch-action: none;
+        cursor: crosshair;
+        margin-bottom: 10px;
+    }
+    
+    .signature-controls {
+        display: flex;
+        gap: 10px;
+    }
+    
+    .btn-clear {
+        flex: 1;
+        padding: 8px 16px;
+        background: rgba(255, 68, 68, 0.3);
+        border: 1px solid #ff4444;
+        border-radius: 5px;
+        color: white;
+        font-family: 'Rajdhani', sans-serif;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 12px;
+    }
+    
+    .btn-clear:hover {
+        background: rgba(255, 68, 68, 0.5);
+    }
+    
+    .btn-save {
+        flex: 1;
+        padding: 8px 16px;
+        background: rgba(138, 43, 226, 0.5);
+        border: 1px solid #8a2be2;
+        border-radius: 5px;
+        color: white;
+        font-family: 'Rajdhani', sans-serif;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 12px;
+    }
+    
+    .btn-save:hover {
+        background: rgba(138, 43, 226, 0.7);
+    }
+    
+    /* Action buttons */
+    .action-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 30px;
+        flex-wrap: wrap;
+    }
+    
+    .btn-action {
+        padding: 12px 24px;
+        border: 1px solid rgba(138, 43, 226, 0.5);
+        border-radius: 8px;
+        font-family: 'Rajdhani', sans-serif;
+        font-weight: 700;
+        cursor: not-allowed;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 13px;
+        background: rgba(50, 50, 50, 0.3);
+        color: rgba(255, 255, 255, 0.3);
+        opacity: 0.5;
+    }
+    
+    .btn-action.active {
+        cursor: pointer;
+        background: rgba(0, 200, 100, 0.3);
+        color: white;
+        border: 1px solid #00ff88;
+        opacity: 1;
+        animation: glow 2s ease-in-out infinite;
+    }
+    
+    .btn-action.active:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(0, 255, 136, 0.5);
+        background: rgba(0, 200, 100, 0.5);
+    }
+    
+    @keyframes glow {
+        0%, 100% {
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+        }
+        50% {
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.8);
+        }
+    }
+    
+    /* Method Media branding footer */
+    .method-media-branding {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        z-index: 1000;
+        opacity: 0.8;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .method-media-branding:hover {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    
+    .branding-bubble {
+        background: linear-gradient(135deg, rgba(138, 43, 226, 0.6), rgba(255, 20, 147, 0.6));
+        border: 2px solid rgba(255, 105, 180, 0.5);
+        border-radius: 50px;
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        box-shadow: 0 10px 30px rgba(138, 43, 226, 0.6);
+        backdrop-filter: blur(10px);
+    }
+    
+    .branding-logo {
+        font-size: 20px;
+    }
+    
+    .branding-text {
+        color: #ffffff;
+        font-family: 'Rajdhani', sans-serif;
+        font-weight: 700;
+        font-size: 14px;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    
+    @media (max-width: 768px) {
+        .content-grid, .signature-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .container {
+            padding: 20px 10px 100px;
+        }
+        
+        .document-title {
+            font-size: 36px;
+        }
+        
+        .method-media-branding {
+            bottom: 15px;
+            right: 15px;
+        }
+    }
+    
+    @media print {
+        body {
+            background: white;
+            color: black;
+        }
+        
+        .cosmic-background,
+        .stars,
+        .signature-controls,
+        .action-buttons,
+        .method-media-branding {
+            display: none;
+        }
+        
+        .section, .signature-box {
+            background: white;
+            border: 1px solid #333;
+        }
+    }
+  </style>
+  <script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body style="padding-top: 40px;">
+  <div class="cosmic-background"></div>
+  <div class="stars"></div>
+  <div class="container"><!-- HEADER -->
+    <div class="header">
+      <div class="method-media-logo">METHOD<br />MEDIA</div>
+      <div class="document-id"><i class="fas fa-file-contract"></i> Document ID: MM-VLNK
+      </div>
+      <h1 class="document-title">Bill of Sale</h1>
+    </div><!-- CONTENT GRID -->
+    <div class="content-grid"><!-- PARTIES INVOLVED -->
+      <div class="section">
+        <div class="section-title">PARTIES INVOLVED</div>
+        <div class="info-row"><span class="info-label">Seller Name</span></div>
+        <div class="info-row"><span class="info-value">Charles Stenerson</span></div>
+        <div class="info-row c741"><span class="info-label">Buyer</span></div>
+        <div class="info-row"><span class="info-value">Franco Miliucci</span></div>
+      </div><!-- VEHICLE DETAILS -->
+      <div class="section">
+        <div class="section-title">VEHICLE DETAILS</div>
+        <div class="info-row"><span class="info-label">Make</span><span class="info-value">Nissan</span></div>
+        <div class="info-row"><span class="info-label">Model</span><span class="info-value">Murano</span></div>
+        <div class="info-row"><span class="info-label">Year</span><span class="info-value">2018</span></div>
+      </div><!-- SALE DETAILS -->
+      <div class="section">
+        <div class="section-title">SALE DETAILS</div>
+        <div class="info-row"><span class="info-label">Price Net</span></div>
+        <div class="price-display">$2,000 CAD</div>
+        <div class="info-row c1052"><span class="info-label">Odometer</span><span class="info-value">As Shown</span>
+        </div>
+        <div class="info-row c1097"><span class="info-value">2018 Nissan Murano</span></div>
+        <div class="info-row c1124"><span class="info-value">VIN Plate: 5N1AZ2MH4JN149310 / CBK1527</span></div>
+      </div><!-- TERMS & CONDITIONS -->
+      <div class="section full-width-section">
+        <div class="section-title">TERMS &amp; CONDITIONS</div>
+        <ul class="terms-list">
+          <li>The Buyer agrees to pay the Seller the agreed price of $2,000.00 CAD within one month from the date of
+            signing this Bill of Sale.</li>
+          <li>If the Buyer fails to make the payment within the agreed timeframe, the vehicle must be surrendered to the
+            Seller unless an alternative payment arrangement is made and agreed upon by both parties in writing.</li>
+          <li>The Buyer accepts the vehicle "as is, where is," and the Seller makes no warranties, express or implied,
+            regarding the condition, fitness for purpose, or merchantability of the vehicle.</li>
+          <li>The Buyer acknowledges that the vehicle and its title are sold exclusively to Franco Miliucci and may not
+            be
+            transferred to any third party without the Seller's written consent until full payment is received.</li>
+          <li>The Buyer assumes all liabilities, responsibilities, and risks regarding the vehicle from the date of
+            signing this Bill of Sale.</li>
+        </ul>
+      </div>
+    </div><!-- SIGNATURES -->
+    <div class="signature-grid">
+      <div class="signature-box"><label class="signature-label">Seller Signature</label><canvas id="sellerSignature"
+          width="941" height="267" class="signature-canvas c1350 c1338"></canvas>
+        <div class="signature-controls"><button class="btn-clear"><i class="fas fa-times"></i> Clear
+          </button><button class="btn-save"><i class="fas fa-check"></i> Save
+          </button></div>
+      </div>
+      <div class="signature-box"><label class="signature-label">Buyer Signature</label><canvas id="buyerSignature"
+          width="941" height="267" class="signature-canvas c1461 c1450 c1449"></canvas>
+        <div class="signature-controls"><button class="btn-clear"><i class="fas fa-times"></i> Clear
+          </button><button class="btn-save"><i class="fas fa-check"></i> Save
+          </button></div>
+      </div>
+    </div><!-- ACTION BUTTONS -->
+    <div class="action-buttons"><button id="downloadBtn" class="btn-action c1562 c1552 c1551"><i
+          class="fas fa-download"></i>
+        DOWNLOAD
+        / SHARE
+      </button><button id="printBtn" class="btn-action c1591 c1582 c1583"><i class="fas fa-print"></i> Print
+      </button><button id="emailBtn" class="btn-action c1619 c1611 c1613"><i class="fas fa-envelope"></i> Email
+      </button></div>
+  </div><!-- Method Media Branding -->
+  <div class="method-media-branding">
+    <div class="branding-bubble">
+      <div class="branding-logo">❄️🔥</div>
+      <div class="branding-text">Made by Method Media</div>
+    </div>
+  </div>
+  <div>
+    <div id="ninja-daytona-banner" class="ninja-daytona-banner">
+      <div class="ninja-daytona-banner-preview-notice"><span>This website is a temporary preview.</span></div>
+      <div class="ninja-daytona-banner-connection-status"><span id="ninja-connection-spinner"
+          class="ninja-connection-status-spinner"></span><span id="ninja-connection-dot"
+          class="ninja-connection-status-dot connected"></span><span id="ninja-connection-text"
+          class="ninja-connection-status-text">Connected</span></div><button title="Close"
+        class="ninja-daytona-banner-close">×</button>
+    </div>
+  </div>
+  <div id="ninja-disconnect-overlay">
+    <div id="ninja-disconnect-overlay-text">Connection to Ninja computer lost.</div>
+    <div id="ninja-disconnect-overlay-text-2">Please reconnect to continue.</div><button
+      id="ninja-disconnect-reconnect-button"><span id="ninja-disconnect-spinner"></span><span
+        id="ninja-disconnect-button-text">Reconnect</span></button>
+  </div>
+  <div>
+    <div id="ninja-daytona-banner-2" class="ninja-daytona-banner">
+      <div class="ninja-daytona-banner-preview-notice"><span>This website is a temporary preview.</span></div>
+      <div class="ninja-daytona-banner-connection-status"><span id="ninja-connection-spinner-2"
+          class="ninja-connection-status-spinner checking"></span><span id="ninja-connection-dot-2"
+          class="ninja-connection-status-dot checking"></span><span id="ninja-connection-text-2"
+          class="ninja-connection-status-text">Connecting</span></div><button title="Close"
+        class="ninja-daytona-banner-close">×</button>
+    </div>
+  </div>
+  <div id="ninja-disconnect-overlay-2">
+    <div id="ninja-disconnect-overlay-text-3">Connection to Ninja computer lost.</div>
+    <div id="ninja-disconnect-overlay-text-4">Please reconnect to continue.</div><button
+      id="ninja-disconnect-reconnect-button-2"><span id="ninja-disconnect-spinner-2"></span><span
+        id="ninja-disconnect-button-text-2">Reconnect</span></button>
+  </div>
+  <div>
+    <div id="ninja-daytona-banner-3" class="ninja-daytona-banner">
+      <div class="ninja-daytona-banner-preview-notice"><span>This website is a temporary preview.</span></div>
+      <div class="ninja-daytona-banner-connection-status"><span id="ninja-connection-spinner-3"
+          class="ninja-connection-status-spinner checking"></span><span id="ninja-connection-dot-3"
+          class="ninja-connection-status-dot checking"></span><span id="ninja-connection-text-3"
+          class="ninja-connection-status-text">Connecting</span></div><button title="Close"
+        class="ninja-daytona-banner-close">×</button>
+    </div>
+  </div>
+  <div id="ninja-disconnect-overlay-3">
+    <div id="ninja-disconnect-overlay-text-5">Connection to Ninja computer lost.</div>
+    <div id="ninja-disconnect-overlay-text-6">Please reconnect to continue.</div><button
+      id="ninja-disconnect-reconnect-button-3"><span id="ninja-disconnect-spinner-3"></span><span
+        id="ninja-disconnect-button-text-3">Reconnect</span></button>
+  </div>
+  <div id="ninja-badge" class="ninja-badge"><button title="Close" class="ninja-badge-close">×</button></div>
+  <div>
+    <div id="ninja-daytona-banner-4" class="ninja-daytona-banner">
+      <div class="ninja-daytona-banner-preview-notice"><span>This website is a temporary preview.</span></div>
+      <div class="ninja-daytona-banner-connection-status"><span id="ninja-connection-spinner-4"
+          class="ninja-connection-status-spinner checking"></span><span id="ninja-connection-dot-4"
+          class="ninja-connection-status-dot checking"></span><span id="ninja-connection-text-4"
+          class="ninja-connection-status-text">Connecting</span></div><button title="Close"
+        class="ninja-daytona-banner-close">×</button>
+    </div>
+  </div>
+  <div id="ninja-disconnect-overlay-4">
+    <div id="ninja-disconnect-overlay-text-7">Connection to Ninja computer lost.</div>
+    <div id="ninja-disconnect-overlay-text-8">Please reconnect to continue.</div><button
+      id="ninja-disconnect-reconnect-button-4"><span id="ninja-disconnect-spinner-4"></span><span
+        id="ninja-disconnect-button-text-4">Reconnect</span></button>
+  </div>
+  <script>
+    let sellerSignaturePad, buyerSignaturePad;
+    let savedSignatures = {
+        seller: null,
+        buyer: null
+    };
+    
+    // Initialize signature pads
+    function initializeSignatures() {
+        // Seller signature pad
+        const sellerCanvas = document.getElementById('sellerSignature');
+        sellerSignaturePad = new SignaturePad(sellerCanvas, {
+            backgroundColor: '#000000',
+            penColor: '#8a2be2',
+            minWidth: 1.5,
+            maxWidth: 3
+        });
+        
+        // Buyer signature pad
+        const buyerCanvas = document.getElementById('buyerSignature');
+        buyerSignaturePad = new SignaturePad(buyerCanvas, {
+            backgroundColor: '#000000',
+            penColor: '#8a2be2',
+            minWidth: 1.5,
+            maxWidth: 3
+        });
+        
+        // Load saved signatures if they exist
+        loadSavedSignatures();
+        
+        // Set up canvas dimensions
+        resizeCanvases();
+        window.addEventListener('resize', resizeCanvases);
+    }
+    
+    function resizeCanvases() {
+        const canvases = document.querySelectorAll('.signature-canvas');
+        canvases.forEach(canvas => {
+            const ratio = Math.max(window.devicePixelRatio || 1, 1);
+            canvas.width = canvas.offsetWidth * ratio;
+            canvas.height = canvas.offsetHeight * ratio;
+            canvas.getContext('2d').scale(ratio, ratio);
+            
+            // Redraw signature if it exists
+            if (canvas.id === 'sellerSignature' && savedSignatures.seller) {
+                sellerSignaturePad.fromDataURL(savedSignatures.seller);
+            } else if (canvas.id === 'buyerSignature' && savedSignatures.buyer) {
+                buyerSignaturePad.fromDataURL(savedSignatures.buyer);
+            }
+        });
+    }
+    
+    function clearSignature(type) {
+        if (type === 'seller') {
+            sellerSignaturePad.clear();
+            savedSignatures.seller = null;
+        } else {
+            buyerSignaturePad.clear();
+            savedSignatures.buyer = null;
+        }
+        localStorage.setItem('billOfSaleSignatures', JSON.stringify(savedSignatures));
+        checkSignatures();
+        showNotification('Signature cleared', 'info');
+    }
+    
+    function saveSignature(type) {
+        if (type === 'seller') {
+            if (sellerSignaturePad.isEmpty()) {
+                showNotification('Please provide a signature first', 'error');
+                return;
+            }
+            savedSignatures.seller = sellerSignaturePad.toDataURL();
+        } else {
+            if (buyerSignaturePad.isEmpty()) {
+                showNotification('Please provide a signature first', 'error');
+                return;
+            }
+            savedSignatures.buyer = buyerSignaturePad.toDataURL();
+        }
+        
+        localStorage.setItem('billOfSaleSignatures', JSON.stringify(savedSignatures));
+        checkSignatures();
+        showNotification('Signature saved successfully', 'success');
+    }
+    
+    function loadSavedSignatures() {
+        const saved = localStorage.getItem('billOfSaleSignatures');
+        if (saved) {
+            savedSignatures = JSON.parse(saved);
+            
+            // Restore signatures
+            setTimeout(() => {
+                if (savedSignatures.seller && sellerSignaturePad) {
+                    sellerSignaturePad.fromDataURL(savedSignatures.seller);
+                }
+                if (savedSignatures.buyer && buyerSignaturePad) {
+                    buyerSignaturePad.fromDataURL(savedSignatures.buyer);
+                }
+                checkSignatures();
+            }, 100);
+        }
+    }
+    
+    function checkSignatures() {
+        const bothSigned = savedSignatures.seller && savedSignatures.buyer;
+        const buttons = ['downloadBtn', 'printBtn', 'emailBtn'];
+        
+        buttons.forEach(btnId => {
+            const btn = document.getElementById(btnId);
+            if (bothSigned) {
+                btn.classList.add('active');
+                btn.style.cursor = 'pointer';
+            } else {
+                btn.classList.remove('active');
+                btn.style.cursor = 'not-allowed';
+            }
+        });
+    }
+    
+    function downloadPDF() {
+        if (!savedSignatures.seller || !savedSignatures.buyer) {
+            showNotification('Both signatures are required', 'error');
+            return;
+        }
+        
+        showNotification('Generating PDF...', 'info');
+        
+        // Hide buttons temporarily
+        const buttons = document.querySelectorAll('.signature-controls, .action-buttons');
+        buttons.forEach(btn => btn.style.display = 'none');
+        
+        html2canvas(document.querySelector('.container'), {
+            scale: 2,
+            useCORS: true,
+            logging: false,
+            backgroundColor: '#000000'
+        }).then(canvas => {
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jspdf.jsPDF('p', 'mm', 'a4');
+            
+            const imgWidth = 210;
+            const pageHeight = 297;
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+            let heightLeft = imgHeight;
+            let position = 0;
+            
+            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+            
+            while (heightLeft >= 0) {
+                position = heightLeft - imgHeight;
+                pdf.addPage();
+                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
+            
+            pdf.save('Bill_of_Sale_Method_Media.pdf');
+            
+            // Show buttons again
+            buttons.forEach(btn => btn.style.display = btn.classList.contains('signature-controls') ? 'flex' : 'flex');
+            
+            showNotification('PDF downloaded successfully', 'success');
+        }).catch(error => {
+            console.error('PDF generation error:', error);
+            showNotification('Error generating PDF', 'error');
+            
+            // Show buttons again
+            buttons.forEach(btn => btn.style.display = btn.classList.contains('signature-controls') ? 'flex' : 'flex');
+        });
+    }
+    
+    function emailDocument() {
+        if (!savedSignatures.seller || !savedSignatures.buyer) {
+            showNotification('Both signatures are required', 'error');
+            return;
+        }
+        
+        const subject = 'Bill of Sale - 2018 Nissan Murano';
+        const body = 'Please find attached the signed Bill of Sale for the 2018 Nissan Murano (VIN: 5N1AZ2MH4JN149310).';
+        window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        showNotification('Opening email client...', 'info');
+    }
+    
+    function showNotification(message, type) {
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            z-index: 10000;
+            font-family: 'Rajdhani', sans-serif;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            max-width: 300px;
+        `;
+        
+        if (type === 'success') {
+            notification.style.background = 'linear-gradient(135deg, #00cc66, #00ff88)';
+        } else if (type === 'error') {
+            notification.style.background = 'linear-gradient(135deg, #ff4444, #ff6666)';
+        } else {
+            notification.style.background = 'linear-gradient(135deg, #8a2be2, #ff1493)';
+        }
+        
+        notification.textContent = message;
+        document.body.appendChild(notification);
+        
+        notification.style.opacity = '0';
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            notification.style.transition = 'all 0.3s ease';
+            notification.style.opacity = '1';
+            notification.style.transform = 'translateX(0)';
+        }, 10);
+        
+        setTimeout(() => {
+            notification.style.opacity = '0';
+            notification.style.transform = 'translateX(100%)';
+            setTimeout(() => {
+                if (document.body.contains(notification)) {
+                    document.body.removeChild(notification);
+                }
+            }, 300);
+        }, 3000);
+    }
+    
+    // Initialize when page loads
+    document.addEventListener('DOMContentLoaded', initializeSignatures);
+  </script>
+</body>
+</html>

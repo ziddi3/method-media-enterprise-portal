@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Contract Viewer Preview Test</title>
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+<script>
+// Inject sample contract data and redirect to viewer
+const sampleData = {
+    userName: "Charles Method",
+    clientEmail: "charles@method-media.ca",
+    clientPhone: "403-555-0100",
+    date: new Date().toISOString(),
+    agreementType: "Master Services Agreement",
+    token: "MM-PREVIEW-2025",
+    agreementId: 1,
+    waxSealImage: "/wax_seals/custom_wax_seal_1773187339589.png",
+    preferences: {
+        "project-type": {
+            label: "Project Type",
+            title: "Enterprise Suite",
+            price: "$28,000 – $65,000 CAD",
+            details: "Multi-module enterprise system: CRM, ERP, HR, reporting."
+        },
+        "hosting": {
+            label: "Hosting",
+            title: "Hybrid (On-Prem + Cloud)",
+            price: "$950 setup + shared cost",
+            details: "Sensitive data on-premise, scalable workloads in the cloud."
+        },
+        "ownership": {
+            label: "Ownership Model",
+            title: "Subscription (SaaS)",
+            price: "$350 – $1,800/month CAD",
+            details: "Always on the latest version. Includes hosting, support, and all updates."
+        },
+        "ai": {
+            label: "AI Integration",
+            title: "Custom AI Model Training",
+            price: "$4,500 – $12,000 CAD",
+            details: "Fine-tuned AI trained on your company data."
+        },
+        "maintenance": {
+            label: "Maintenance",
+            title: "Standard Support",
+            price: "$225/month CAD",
+            details: "Business-hours support (M–F 8am–6pm MT). Bug fixes within 5 business days."
+        }
+    }
+};
+localStorage.setItem('contractData', JSON.stringify(sampleData));
+window.location.href = '/contract-viewer.html';
+</script>
+<p>Loading preview...</p>
+</body>
+</html>
