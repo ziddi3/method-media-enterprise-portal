@@ -516,11 +516,15 @@ button { cursor: pointer; border: none; outline: none; font-family: var(--font-u
 
 .bottom-brand {
     position: absolute;
-    bottom: 24px;
+    bottom: 60px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 2;
     opacity: 0.55;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
 }
 .bottom-logo {
     height: 48px;
