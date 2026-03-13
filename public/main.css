@@ -2692,12 +2692,11 @@ button { cursor: pointer; border: none; outline: none; font-family: var(--font-u
 .starflame-link {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    margin-top: 12px;
-    padding: 8px 16px;
+    gap: 6px;
+    padding: 6px 12px;
     background: linear-gradient(135deg, rgba(255, 100, 50, 0.15), rgba(255, 150, 50, 0.1));
     border: 1px solid rgba(255, 120, 50, 0.3);
-    border-radius: 30px;
+    border-radius: 20px;
     text-decoration: none;
     transition: all 0.3s ease;
     animation: starflameGlow 2s ease-in-out infinite;
@@ -2711,24 +2710,77 @@ button { cursor: pointer; border: none; outline: none; font-family: var(--font-u
 }
 
 .starflame-icon {
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     animation: flameFlicker 0.5s ease-in-out infinite alternate;
 }
 
 .starflame-text {
     font-family: var(--font-ui);
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     font-weight: 500;
     color: #ff9060;
     letter-spacing: 0.03em;
 }
 
 @keyframes starflameGlow {
-    0%, 100% { box-shadow: 0 0 10px rgba(255, 100, 50, 0.2); }
-    50% { box-shadow: 0 0 20px rgba(255, 100, 50, 0.4); }
+    0%, 100% { box-shadow: 0 0 8px rgba(255, 100, 50, 0.15); }
+    50% { box-shadow: 0 0 16px rgba(255, 100, 50, 0.3); }
 }
 
 @keyframes flameFlicker {
     0% { transform: scale(1) rotate(-2deg); }
     100% { transform: scale(1.1) rotate(2deg); }
+}
+
+/* Personal Links Container */
+.personal-links {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Ziridian Link Styles */
+.ziridian-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: linear-gradient(135deg, rgba(100, 200, 255, 0.15), rgba(150, 100, 255, 0.1));
+    border: 1px solid rgba(120, 180, 255, 0.3);
+    border-radius: 20px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    animation: ziridianGlow 3s ease-in-out infinite;
+}
+
+.ziridian-link:hover {
+    background: linear-gradient(135deg, rgba(100, 200, 255, 0.25), rgba(150, 100, 255, 0.2));
+    border-color: rgba(120, 180, 255, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(100, 200, 255, 0.3);
+}
+
+.ziridian-icon {
+    font-size: 0.9rem;
+    animation: worldSpin 4s linear infinite;
+}
+
+.ziridian-text {
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #80c0ff;
+    letter-spacing: 0.03em;
+}
+
+@keyframes ziridianGlow {
+    0%, 100% { box-shadow: 0 0 8px rgba(100, 200, 255, 0.15); }
+    50% { box-shadow: 0 0 16px rgba(100, 200, 255, 0.3); }
+}
+
+@keyframes worldSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
